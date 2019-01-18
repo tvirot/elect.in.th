@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>เลือกตั้งในโลกโซเชียล</title>
+
+    <link rel="stylesheet" href="elect-social-listener.css">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700|Bai+Jamjuree:400,600" rel="stylesheet">
+</head>
+
+<body>
+    <script async src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.5" 
+    ></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <h1>เลือกตั้งในโลกโซเชียล</h1>
+    <h3>พรรคไหน? ผู้สมัครคนใด? ที่ได้รับความสนใจสูงสุดบนโลกโซเชียล</h3>
+
+    <div id="streamgraph"></div>
+    <div id="reference">
+        <div id="date">
+            Nov 15, 2018
+        </div>
+        <br/>
+        <div id="post-fb">
+            <div class="fb-post" 
+                data-href="https://www.facebook.com/357761117358/posts/10156786517502359/"
+                data-width="500">
+            </div>
+        </div>
+        <div id="post-twitter" class="hidden">
+            <blockquote class="twitter-tweet" data-lang="th" width="500" align="left">
+                <a href="http://twitter.com/TsnParty/status/1073953370187001857"></a>
+            </blockquote>
+        </div>
+    </div>
+
+    <div id="article"></div>
+    <div id="credits"></div>
+    <div id="footnote">
+        <b>หมายเหตุ:</b> ข้อมูลที่ใช้ในการวิเคราะห์มาจากบัญชีหลักของพรรคการเมือง บัญชีผู้ได้รับการเสนอชื่อให้เป็นนายกรัฐมนตรี และบัญชีของสื่อมวลชนกระแสหลักที่มียอดผู้ติดตามเกินหนึ่งล้านคน
+    </div>
+
+    <script src="node_modules/d3/dist/d3.min.js"></script>
+    <script src="src/elect-social-listener.js"></script>
+</body>
+
+</html>
