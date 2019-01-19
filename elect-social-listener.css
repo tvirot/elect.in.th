@@ -6,12 +6,17 @@
 }
 
 html, body {
-    background: #ebe4cf;
+    /* background: #ebe4cf;  */
+    background: #fbf8ed;
     font-family: 'Bai Jamjuree', serif;
     height: 100%;
     width: 100%;
     margin: 20px;
     box-sizing: border-box;
+    color: #444;
+    line-height: 1.5;
+    font-size: 16px; 
+    font-weight: 300;
 }
 
 h1, h2, h3 {
@@ -23,12 +28,31 @@ h1, h2, h3 {
     display: none;
 }
 
+#editorial {
+    text-align: center;
+    width: 60%;
+    margin: 40px auto;
+}
+
+#footnote {
+    font-size: 14px;
+    color: #666;
+    padding-top: 24px; 
+}
+
+
 #streamgraph {
     display: inline-block;
+    text-align: center;
     width: 49%; 
-    height: 100%;
     vertical-align: top;
     overflow: hidden;
+}
+
+.grid {
+    stroke: #000;
+    stroke-opacity: 0.25;
+    stroke-width: 1px; 
 }
 
 #date {
@@ -48,10 +72,4 @@ h1, h2, h3 {
     vertical-align: top;
     overflow: scroll;
     text-align: left;
-}
-
-#footnote {
-    padding-top: 36px;
-    font-size: 14px;
-    color: #999;
 }

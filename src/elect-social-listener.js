@@ -12,7 +12,7 @@ const parties = [
     "ประชาชาติ"
 ];
 
-const colors = [
+const colors_old = [
     "#d08c90",
 //  "#ddb18b",
     "#a39163",
@@ -26,6 +26,20 @@ const colors = [
     "#a0bbe7",
     "#a687b6",
     "#e3b3dc"
+];
+
+const colors = [
+    '#a50026',
+    '#d73027',
+    '#f46d43',
+    '#fdae61',
+    // '#fee090',
+    // '#ffffbf',
+    // '#e0f3f8',
+    '#abd9e9',
+    '#74add1',
+    '#4575b4',
+    '#313695'
 ];
 
 const stack = d3.stack()
@@ -50,8 +64,11 @@ const y = d3.scaleLinear()
 
 const area = d3.area()
     .x((d, i) => x(i))
+    // Add extra spaces between chunks
     .y0(d => Math.max(y(d[0]) - 2, y(d[1])))
     .y1(d => Math.min(y(d[1]) + 2, y(d[0])))
+    // .y0(d => y(d[0]))
+    // .y1(d => y(d[1]))
     .curve(d3.curveCardinal.tension(0.25));
 
 d3.json('social-summary.json').then((raw) => init(raw));
@@ -86,10 +103,20 @@ function render(series) {
         .enter().append('path')
         .attr('d', area)
         .attr('fill', (d,i) => colors[i])
-        .attr('stroke', '#FFF')
+        // Give a smoother look at edges
+        .attr('stroke', '#fbf8ed')
         .attr('stroke-width', 3)
         .attr('stroke-opacity', 0.25);
     
+    g.selectAll('line')
+        .data(d3.range(series[0].length))
+        .enter().append('line')
+        .classed('grid', true)
+        .attr('x1', (d,i) => x(i) + day_gap_height / 2)
+        .attr('x2', (d,i) => x(i) + day_gap_height / 2)
+        .attr('y1', (d,i) => (i % 7 == 0) ? 0 : 15)
+        .attr('y2', (d,i) => (i % 7 == 0) ? width : 35);
+
     g.attr('transform', `rotate(90 ${width/2} ${width/2})`);
     
 }   
