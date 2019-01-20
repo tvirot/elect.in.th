@@ -1,0 +1,86 @@
+@font-face {
+    font-family: 'The Matter';
+    font-weight: 700;
+    src: url(../font/thematter-bold_6c43ee73.woff2) format("woff2"),
+    url(../font/thematter-bold_a41f650d.woff) format("woff");
+}
+
+html, body {
+    /* background: #ebe4cf;  */
+    background: #fbf8ed;
+    font-family: 'Bai Jamjuree', serif;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #444;
+    line-height: 1.5;
+    font-size: 16px; 
+    font-weight: 300;
+}
+
+h1, h2, h3 {
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    text-align: center;   
+}
+
+.hidden {
+    display: none;
+}
+
+#editorial {
+    text-align: center;
+    width: 60%;
+    margin: 40px auto;
+}
+
+#footnote {
+    font-size: 14px;
+    color: #666;
+    padding-top: 24px; 
+}
+
+
+#streamgraph {
+    display: inline-block;
+    text-align: center;
+    width: 49%; 
+    vertical-align: top;
+}
+
+.grid {
+    stroke: #000;
+    stroke-opacity: 0.25;
+    stroke-width: 1px; 
+}
+
+.hoverarea {
+    fill-opacity: 0; 
+    cursor: pointer; 
+}
+
+.highlightarea {
+    fill: none;
+}
+
+.highlightarea.highlight {
+    fill: url(#hover-gradient);
+}
+
+#reference {
+    display: inline-block;
+    width: 49%; 
+    text-align: left;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 16px;
+}
+
+#date {
+    display: inline-block;
+    border-bottom: 1px solid #ef314a;
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 15px 0;
+    padding: 5px 0;
+}
