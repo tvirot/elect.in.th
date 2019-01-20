@@ -22,21 +22,33 @@
     <div id="editorial">
         <div id="article">
             บุรีรัมย์สเกล อีเมล์ ซัลฟิวริก ขอนแก่น พังงาซัพพอร์ทเมมโมรี คอมมูนิเคชั่นพันธุศาสตร์ตราดยีสต์ ฟีโรโมนจันทบุรีโซลูชันซอร์ส ไพรเมตเน็ตบุค ดาวน์เกรดเวอร์ชวลโน้ตบุ๊ก อัลคาไลน์ซ็อกเก็ตโครมาโทกราฟีมอนอกไซด์ ฉะเชิงเทราสแกนเนอร์เมาส์ นครราชสีมาล้านช้างโดเมนเมตริกซ์ เดลไฟไชยา ไชยาฟล็อปส์ซัลฟิวริกไชยา ดอสฮาร์ดดิสก์สเกลไวแมกซ์เมมโมรี ไชยาอินทิเกรเตอร์สเปิร์มยะลา
-            <br/>
-            จุลชีววิทยาเมตริกซ์แพร่ทวีต วินโดวส์ไบต์ เคอราติน แพร่ไฮเพอร์โบลาไลบรารี ไดรเวอร์ ซัพพอร์ตสแกนเนอร์แชนแนล แพลตฟอร์มคูลอมบ์แบนด์วิดท์ บลูเรย์ไบนารีกูเกิ้ล แชนเนลดีไวซ์อุทัยธานีสมุทรสงคราม ชัยนาทชัยภูมิ ฮาร์ดดิสก์ตรัง อีเมลอัปโหลดเมลามีนพัลซาร์ โฟลเดอร์ สิมิลัน คอมพิวติ้งโซนาร์แอสเซมบลีคอมพิวติ้งพะเยา สุริยจักรวาลยูนิกซ์อีโบล่ามหาสารคาม        </div>
+        </div>
         <div id="credits"></div>
         <div id="footnote">
             <b>หมายเหตุ:</b> ข้อมูลที่ใช้ในการวิเคราะห์มาจากบัญชีหลักของพรรคการเมือง บัญชีผู้ได้รับการเสนอชื่อให้เป็นนายกรัฐมนตรี และบัญชีของสื่อมวลชนกระแสหลักที่มียอดผู้ติดตามเกินหนึ่งล้านคน
         </div>
     </div>
 
-    <div id="streamgraph"></div>
+    <div id="streamgraph">
+        <svg>
+            <defs>
+                <linearGradient id="hover-gradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+                    <stop offset="0%" stop-color="#e6e0cb" stop-opacity="0.8"/>
+                    <stop offset="20%" stop-color="#e6e0cb" stop-opacity="0.3"/>
+                    <stop offset="40%" stop-color="#e6e0cb" stop-opacity="0.0"/>
+                    <stop offset="60%" stop-color="#e6e0cb" stop-opacity="0.0"/>
+                    <stop offset="80%" stop-color="#e6e0cb" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#e6e0cb" stop-opacity="0.8"/>
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
     <div id="reference">
-        <div id="date">
-            Nov 15, 2018
-        </div>
+        <div id="date"></div>
         <br/>
-        <div id="post-fb">
+        <!-- <div id="minibar"> <svg></svg> </div> -->
+        <div id="top-posts"></div>
+        <!-- <div id="post-fb">
             <div class="fb-post" 
                 data-href="https://www.facebook.com/357761117358/posts/10156786517502359/"
                 data-width="500">
@@ -46,7 +58,7 @@
             <blockquote class="twitter-tweet" data-lang="th" width="500" align="left">
                 <a href="http://twitter.com/TsnParty/status/1073953370187001857"></a>
             </blockquote>
-        </div>
+        </div> -->
     </div>
 
     <script src="node_modules/d3/dist/d3.min.js"></script>

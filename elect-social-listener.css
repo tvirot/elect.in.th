@@ -9,9 +9,8 @@ html, body {
     /* background: #ebe4cf;  */
     background: #fbf8ed;
     font-family: 'Bai Jamjuree', serif;
-    height: 100%;
     width: 100%;
-    margin: 20px;
+    padding: 20px;
     box-sizing: border-box;
     color: #444;
     line-height: 1.5;
@@ -46,13 +45,34 @@ h1, h2, h3 {
     text-align: center;
     width: 49%; 
     vertical-align: top;
-    overflow: hidden;
 }
 
 .grid {
     stroke: #000;
     stroke-opacity: 0.25;
     stroke-width: 1px; 
+}
+
+.hoverarea {
+    fill-opacity: 0; 
+    cursor: pointer; 
+}
+
+.highlightarea {
+    fill: none;
+}
+
+.highlightarea.highlight {
+    fill: url(#hover-gradient);
+}
+
+#reference {
+    display: inline-block;
+    width: 49%; 
+    text-align: left;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 16px;
 }
 
 #date {
@@ -63,13 +83,4 @@ h1, h2, h3 {
     line-height: 1.4;
     margin: 15px 0;
     padding: 5px 0;
-}
-
-#reference {
-    display: inline-block;
-    width: 49%; 
-    height: 100%;
-    vertical-align: top;
-    overflow: scroll;
-    text-align: left;
 }
