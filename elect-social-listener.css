@@ -46,33 +46,21 @@ h1, h2, h3 {
     width: 49%; 
     vertical-align: top;
 }
-
-.grid {
+.grid, .xaxis path {
     stroke: #000;
     stroke-opacity: 0.25;
     stroke-width: 1px; 
 }
-
 .hoverarea {
     fill-opacity: 0; 
     cursor: pointer; 
 }
-
-.highlightarea {
-    fill: none;
-}
-
-.highlightarea.highlight {
+.highlight-area {
     fill: url(#hover-gradient);
 }
-
-#reference {
-    display: inline-block;
-    width: 49%; 
-    text-align: left;
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 16px;
+.highlight-line {
+    stroke: #e6e0cb;
+    stroke-width: 1px; 
 }
 
 #date {
@@ -84,3 +72,38 @@ h1, h2, h3 {
     margin: 15px 0;
     padding: 5px 0;
 }
+
+#reference {
+    display: inline-block;
+    width: 49%; 
+    text-align: left;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 16px;
+    overflow: hidden;
+}
+
+.xaxis .tick line {
+    stroke: #fbf8ed;
+    stroke-width: 2px;
+}
+
+.xaxis .tick text, .bar-label {
+    font-family: 'Bai Jamjuree', serif;
+    font-weight: 400;
+    font-size: 12px;
+    fill: #444;
+}
+
+.bar-label-x, .bar-label-y {
+    font-family: 'Bai Jamjuree', serif;
+    font-weight: 400;
+    font-size: 14px;
+    fill: #444;
+}
+
+#top-post {
+    width: 500px;
+    font-size: 12px; 
+}
+
