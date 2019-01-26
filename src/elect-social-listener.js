@@ -52,12 +52,12 @@ const streamgraph = {
 
 /* ===== Mini bar chart's config ===== */
 const minibar = {
-    width: 500, // Fixed width for simplicity
+    width: 321, // Fixed width for simplicity
     margin: {
-        top: 32,
+        top: 24,
         bottom: 48,
-        left: 160,
-        right: 30
+        left: 140,
+        right: 0
     },
     between_bar_distance: 24, // 8px between bars
     n_top: 3,
@@ -217,13 +217,10 @@ function handleMouseover(d) {
     // d3.selectAll('.top-post')
     //     .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
     renderMinibar(d.stats.slice(0, minibar.n_top));
-    d3.select('#top-post')
-        .html(`[placeholder] - Top post of the day
-            <br/>${d.top_post.channel}
-            <br/>${d.top_post.user_name}
-            <br/>${d.top_post.text}
-            <br/>${d.top_post.permalink}
-        `);
+    d3.select('#top-post .username').text(d.top_post.user_name);
+    d3.select('#top-post .channel i').attr('class', d.top_post.channel == 'twitter' ? 'fab fa-twitter' : 'fab fa-facebook-f');
+    d3.select('#top-post .post').text(d.top_post.text.length > 300 ? d.top_post.text.substr(0,300) + ' ...' : d.top_post.text);
+    d3.select('#top-post a').attr('href', d.top_post.permalink);
 }
 
 function initMinibar(max_engagement) {
@@ -238,7 +235,7 @@ function initMinibar(max_engagement) {
         .range([0, minibar.width - minibar.margin.left - minibar.margin.right]);
 
     minibar.xAxis = d3.axisBottom(minibar.x)
-        .ticks(5, 's')
+        .ticks(4, 's')
         .tickSizeInner(-minibar.between_bar_distance * minibar.n_top)
         .tickSizeOuter(0)
         .tickPadding(12);
