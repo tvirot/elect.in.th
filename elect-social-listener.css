@@ -42,7 +42,6 @@ h1, h2, h3 {
     display: inline-block;
     text-align: center;
     width: 49%; 
-    vertical-align: top;
 }
 .grid, .xaxis path {
     stroke: #000;
@@ -73,13 +72,13 @@ h1, h2, h3 {
 }
 
 #reference-container {
+    vertical-align: top;
     display: inline-block;
     width: 49%; 
     text-align: left;
     position: -webkit-sticky; 
     position: sticky;
     top: 0px; 
-    overflow: hidden;
     box-sizing: border-box;
     padding: 0 20px; 
 }
@@ -130,7 +129,7 @@ h1, h2, h3 {
         box-shadow: 0 5px 5px #00000011;
         max-height: 400px;
         width: 100%;
-        top: 0; 
+        bottom: 0; 
         background: rgba(231,233,228,0.9);
     } 
 }
