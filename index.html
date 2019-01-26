@@ -5,23 +5,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
 
-    <title>เลือกตั้งในโลกโซเชียล</title>
+    <title>วิเคราะห์ศึกเลือกตั้งบนโลกโซเชียล</title>
 
     <link rel="stylesheet" href="elect-social-listener.css">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700|Bai+Jamjuree:300,400,600" rel="stylesheet">
 </head>
 
 <body>
-    <!-- <script async src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.5" 
-    ></script>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+    <!-- <script async src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.5"></script> -->
+    <!-- <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
 
-    <h1>กระแสเลือกตั้งในโลกโซเชียล</h1>
-    <h3>พรรคไหน? ผู้สมัครคนใด? ที่ได้รับความสนใจสูงสุดบนโลกโซเชียล</h3>
+    <h1>วิเคราะห์ศึกเลือกตั้งบนโลกโซเชียล</h1>
+    <h3>พรรคการเมืองไหนอยู่ในกระแสโซเชียลมากที่สุด?</h3>
 
     <div id="editorial">
         <div id="article">
-            บุรีรัมย์สเกล อีเมล์ ซัลฟิวริก ขอนแก่น พังงาซัพพอร์ทเมมโมรี คอมมูนิเคชั่นพันธุศาสตร์ตราดยีสต์ ฟีโรโมนจันทบุรีโซลูชันซอร์ส ไพรเมตเน็ตบุค ดาวน์เกรดเวอร์ชวลโน้ตบุ๊ก อัลคาไลน์ซ็อกเก็ตโครมาโทกราฟีมอนอกไซด์ ฉะเชิงเทราสแกนเนอร์เมาส์ นครราชสีมาล้านช้างโดเมนเมตริกซ์ เดลไฟไชยา ไชยาฟล็อปส์ซัลฟิวริกไชยา ดอสฮาร์ดดิสก์สเกลไวแมกซ์เมมโมรี ไชยาอินทิเกรเตอร์สเปิร์มยะลา
+            <p>
+                สนามเลือกตั้งไม่ได้มีอยู่แค่ในโลกภายนอก และการหาเสียงไม่ได้ปรากฎอยู่แค่การเคาะประตูบ้าน หรือปราศรัยบนเวที แต่การแย่งชิงพื้นที่ทางการเมืองยังเกิดขึ้นในโลกโซเชียลมีเดียอย่างเข้มข้นด้วยเช่นกัน
+            </p>
+            <p>
+                พรรคการเมืองที่คุณชื่นชอบ ถูกพูดถึงมากแค่ไหนในแต่ละสัปดาห์? สื่อมวลชนกระแสหลักหยิบประเด็นใดมานำเสนอ? และวาระทางการเมืองแบบไหนที่ได้รับความสนใจมากที่สุด? ชวนไปสำรวจได้ผ่านข้อมูลชุดนี้
+            </p>
         </div>
         <div id="credits"></div>
         <div id="footnote">
@@ -29,35 +33,27 @@
         </div>
     </div>
 
-    <div id="streamgraph">
-        <svg>
-            <defs>
-                <linearGradient id="hover-gradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
-                    <stop offset="0%" stop-color="#e6e0cb" stop-opacity="0.8"/>
-                    <stop offset="20%" stop-color="#e6e0cb" stop-opacity="0.3"/>
-                    <stop offset="50%" stop-color="#e6e0cb" stop-opacity="0.0"/>
-                    <stop offset="80%" stop-color="#e6e0cb" stop-opacity="0.3"/>
-                    <stop offset="100%" stop-color="#e6e0cb" stop-opacity="0.8"/>
-                </linearGradient>
-            </defs>
-        </svg>
-    </div>
-    <div id="reference">
-        <div id="date"></div>
-        <br/>
-        <div id="minibar"> <svg></svg> </div>
-        <div id="top-post"></div>
-        <!-- <div id="post-fb">
-            <div class="fb-post" 
-                data-href="https://www.facebook.com/357761117358/posts/10156786517502359/"
-                data-width="500">
-            </div>
+    <div id="reference-container">
+        <div id="reference">
+            <div id="date"></div>
+            <br/>
+            <div id="minibar"> <svg></svg> </div>
+            <div id="top-post"></div>
+            <!-- <div id="post-fb">
+                <div class="fb-post" 
+                    data-href="https://www.facebook.com/200355362728/posts/10157990718292729/"
+                    data-width="500">
+                </div>
+            </div> -->
+            <!-- <div id="post-twitter" class="hidden">
+                <blockquote class="twitter-tweet" data-lang="th" width="500" align="left">
+                    <a href="http://twitter.com/TsnParty/status/1073953370187001857"></a>
+                </blockquote>
+            </div> -->
         </div>
-        <div id="post-twitter" class="hidden">
-            <blockquote class="twitter-tweet" data-lang="th" width="500" align="left">
-                <a href="http://twitter.com/TsnParty/status/1073953370187001857"></a>
-            </blockquote>
-        </div> -->
+    </div>
+    <div id="streamgraph">
+        <svg></svg>
     </div>
 
     <script src="node_modules/d3/dist/d3.min.js"></script>

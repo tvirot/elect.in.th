@@ -7,7 +7,7 @@
 
 html, body {
     /* background: #ebe4cf;  */
-    background: #fbf8ed;
+    background: #e7e9e4;
     font-family: 'Bai Jamjuree', serif;
     width: 100%;
     padding: 20px;
@@ -29,7 +29,6 @@ h1, h2, h3 {
 
 #editorial {
     text-align: center;
-    width: 60%;
     margin: 40px auto;
 }
 
@@ -39,7 +38,6 @@ h1, h2, h3 {
     padding-top: 24px; 
 }
 
-
 #streamgraph {
     display: inline-block;
     text-align: center;
@@ -48,7 +46,7 @@ h1, h2, h3 {
 }
 .grid, .xaxis path {
     stroke: #000;
-    stroke-opacity: 0.25;
+    stroke-opacity: 0.15;
     stroke-width: 1px; 
 }
 .hoverarea {
@@ -56,12 +54,13 @@ h1, h2, h3 {
     cursor: pointer; 
 }
 .highlight-area {
-    fill: url(#hover-gradient);
+    fill: #cdd0c7;
+    fill-opacity: 0.4; 
 }
-.highlight-line {
+/* .highlight-line {
     stroke: #e6e0cb;
     stroke-width: 1px; 
-}
+} */
 
 #date {
     display: inline-block;
@@ -73,18 +72,20 @@ h1, h2, h3 {
     padding: 5px 0;
 }
 
-#reference {
+#reference-container {
     display: inline-block;
     width: 49%; 
     text-align: left;
-    position: -webkit-sticky; /* Safari */
+    position: -webkit-sticky; 
     position: sticky;
-    top: 16px;
+    top: 0px; 
     overflow: hidden;
+    box-sizing: border-box;
+    padding: 0 20px; 
 }
 
 .xaxis .tick line {
-    stroke: #fbf8ed;
+    stroke: #e7e9e4;
     stroke-width: 2px;
 }
 
@@ -103,7 +104,39 @@ h1, h2, h3 {
 }
 
 #top-post {
-    width: 500px;
     font-size: 12px; 
 }
 
+@media screen and (max-device-width: 640px){
+    html, body {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    h1, h2, h3 {
+        padding: 0 20px;
+    }
+    
+    #editorial {
+        padding: 0 20px;
+    }
+
+    #streamgraph {
+        width: 100%;
+    }
+
+    #reference-container {
+        border-bottom: 20px solid rgba(231,233,228,0.0);
+        box-shadow: 0 5px 5px #00000011;
+        max-height: 400px;
+        width: 100%;
+        top: 0; 
+        background: rgba(231,233,228,0.9);
+    } 
+}
+
+@media screen and (min-width: 1024px){
+    #editorial {
+        width: 75%;
+    }
+}
