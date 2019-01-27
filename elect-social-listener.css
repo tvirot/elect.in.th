@@ -7,7 +7,7 @@
 
 html, body {
     /* background: #ebe4cf;  */
-    background: #fbf8ed;
+    background: #e7e9e4;
     font-family: 'Bai Jamjuree', serif;
     width: 100%;
     padding: 20px;
@@ -29,7 +29,6 @@ h1, h2, h3 {
 
 #editorial {
     text-align: center;
-    width: 60%;
     margin: 40px auto;
 }
 
@@ -39,16 +38,38 @@ h1, h2, h3 {
     padding-top: 24px; 
 }
 
+#legend {
+    margin-bottom: 20px; 
+    padding: 0 10px; 
+}
+
+#legend div {
+    display: inline-block; 
+    padding-right: 20px; 
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    font-size: 12px; 
+}
+
+#legend i {
+    padding-right: 4px; 
+}
+
+#instruction { 
+    font-size: 12px;
+    margin-top: 28px;  
+    margin-bottom: 20px; 
+    color: #999;     
+}
 
 #streamgraph {
     display: inline-block;
     text-align: center;
     width: 49%; 
-    vertical-align: top;
+    margin-top: 20px;
 }
 .grid, .xaxis path {
     stroke: #000;
-    stroke-opacity: 0.25;
+    stroke-opacity: 0.15;
     stroke-width: 1px; 
 }
 .hoverarea {
@@ -56,12 +77,13 @@ h1, h2, h3 {
     cursor: pointer; 
 }
 .highlight-area {
-    fill: url(#hover-gradient);
+    fill: #cdd0c7;
+    fill-opacity: 0.4; 
 }
-.highlight-line {
+/* .highlight-line {
     stroke: #e6e0cb;
     stroke-width: 1px; 
-}
+} */
 
 #date {
     display: inline-block;
@@ -73,19 +95,20 @@ h1, h2, h3 {
     padding: 5px 0;
 }
 
-#reference {
+#reference-container {
     display: inline-block;
     width: 49%; 
-    text-align: left;
-    position: -webkit-sticky; /* Safari */
+    text-align: center;
+    position: -webkit-sticky; 
     position: sticky;
-    top: 16px;
+    top: 0px; 
+    vertical-align: top;
     overflow: hidden;
 }
 
 .xaxis .tick line {
-    stroke: #fbf8ed;
-    stroke-width: 2px;
+    stroke: #e7e9e4;
+    stroke-width: 1px;
 }
 
 .xaxis .tick text, .bar-label {
@@ -98,12 +121,88 @@ h1, h2, h3 {
 .bar-label-x, .bar-label-y {
     font-family: 'Bai Jamjuree', serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13px;
     fill: #444;
 }
 
 #top-post {
-    width: 500px;
+    text-align: left;
     font-size: 12px; 
+    cursor: pointer;
+    padding: 0 20px; 
+    box-sizing: border-box;
 }
 
+#top-post .username {
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    font-size: 13px; 
+}
+
+#top-post .channel {
+    padding-left: 8px; 
+}
+
+blockquote {
+    border-left: 4px solid #cdd0c7;
+    margin-left: 8px;
+    padding-left: 16px;
+    font-weight: 400;
+}
+
+#top-post:hover blockquote {
+    border-left: 4px solid #ef314a;
+}
+
+a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+}
+
+@media screen and (max-device-width: 667px){
+    html, body {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    h1, h2, h3 {
+        padding: 0 20px;
+    }
+    
+    #editorial {
+        padding: 0 20px;
+    }
+
+    #streamgraph {
+        width: 100%;
+    }
+
+    #reference-container {
+        border-bottom: 20px solid rgba(231,233,228,0.0);
+        box-shadow: 0 5px 5px #00000011;
+        max-height: 400px;
+        width: 100%;
+        bottom: 0; 
+        background: rgba(231,233,228,0.9);
+    } 
+
+    blockquote {
+        width: 321px;
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-device-width: 667px) and (orientation: landscape) {
+    #reference-container {
+        max-height: 200px;
+    } 
+
+    blockquote {
+        width: 100%; 
+    }
+}
+
+@media screen and (min-width: 1024px){
+    #editorial {
+        width: 75%;
+    }
+}

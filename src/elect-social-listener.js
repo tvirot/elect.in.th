@@ -1,49 +1,34 @@
 const parties = [
     "ชาติไทยพัฒนา", 
-    "ประชาธิปัตย์", 
-    "พลังประชารัฐ", 
     "เพื่อไทย", 
-    "ภูมิใจไทย", 
     "อนาคตใหม่", 
     "ไทยรักษาชาติ", 
     "รวมพลังประชาชาติไทย", 
-    // "เพื่อชาติ", 
-    // "เพื่อธรรม", 
-    "ประชาชาติ"
-];
-
-const colors_old = [
-    "#d08c90",
-//  "#ddb18b",
-    "#a39163",
-    "#b7c791",
-    "#78a06c",
-    "#6aa082",
-//  "#90d2b6",
-    "#54a6a0",
-    "#69cee0",
-    "#599cc0",
-    "#a0bbe7",
-    "#a687b6",
-    "#e3b3dc"
+    "พลังประชารัฐ", 
+    "ประชาธิปัตย์", 
+    "ภูมิใจไทย", 
+    "ประชาชาติ",
+    "เพื่อชาติ", 
+    "เพื่อธรรม"
 ];
 
 const colors = [
     '#a50026',
-    '#d73027',
-    '#f46d43',
+    '#DE0505', // '#d73027',
+    '#f47932', // '#f46d43',
     '#fdae61',
-    // '#fee090',
-    // '#ffffbf',
-    '#e0f3f8',
-    '#abd9e9',
-    '#74add1',
+    '#F6CD4A', // '#fee090',
+    '#546d40', // '#abd9e9',
+    '#40BDE7', // '#74add1',
     '#4575b4',
-    '#313695'
+    '#313695',
+    '#B27E7D', // '#ffffbf',
+    '#F9C8D9' // '#e0f3f8'
 ];
 
 const party2color = {};
 parties.forEach((d,i) => party2color[d] = colors[i]);
+console.log(party2color);
 
 /* ===== Streamgraph's Config ===== */ 
 const streamgraph = {
@@ -58,7 +43,7 @@ const streamgraph = {
 
     stack: d3.stack()
         .keys(parties)
-        .order(d3.stackOrderInsideOut)
+        .order(d3.stackOrderDescending)
         .offset(d3.stackOffsetWiggle),
 
     area: d3.area()
@@ -67,12 +52,12 @@ const streamgraph = {
 
 /* ===== Mini bar chart's config ===== */
 const minibar = {
-    width: 500, // Fixed width for simplicity
+    width: 321, // Fixed width for simplicity
     margin: {
-        top: 32,
+        top: 24,
         bottom: 48,
-        left: 160,
-        right: 30
+        left: 140,
+        right: 0
     },
     between_bar_distance: 24, // 8px between bars
     n_top: 3,
@@ -117,6 +102,16 @@ function init(raw) {
         });
     */
 
+    // Display legend
+    d3.select('#legend')
+        .selectAll('div')
+        .data(parties)
+        .enter().append('div')
+        .html((d,i) => `
+            <i class="fas fa-circle" style="color:${colors[i]};"></i>
+            ${d}
+        `);
+
     // Initialize streamgraph 
     let max_engagement = 0; 
     const data = []; 
@@ -124,7 +119,7 @@ function init(raw) {
     raw.forEach(d => {
         let entry = {};
         entry.date = d.created_date_bkk;
-        parties.forEach(party => { entry[party] = 1; }); // Init with 1 (avoid 0)
+        parties.forEach(party => { entry[party] = 5; }); // Init with 1 (avoid 0)
         d.stats.forEach(dd => { entry[dd.party] = ++dd.total_engagement; });
         max_engagement = Math.max(max_engagement, d3.max(d.stats.map(dd => dd.total_engagement)));
         data.push(entry);
@@ -160,10 +155,10 @@ function initStreamgraph(data) {
     streamgraph.area        
         .x((d, i) => streamgraph.x(i))
         // Add extra spaces between chunks
-        .y0(d => Math.max(streamgraph.y(d[0]) - 2, streamgraph.y(d[1])))
-        .y1(d => Math.min(streamgraph.y(d[1]) + 2, streamgraph.y(d[0])))
-        // .y0(d => streamgraph.y(d[0]))
-        // .y1(d => streamgraph.y(d[1]));
+        // .y0(d => Math.max(streamgraph.y(d[0]) - 2, streamgraph.y(d[1])))
+        // .y1(d => Math.min(streamgraph.y(d[1]) + 2, streamgraph.y(d[0])))
+        .y0(d => streamgraph.y(d[0]))
+        .y1(d => streamgraph.y(d[1]));
     
     return series; 
 }
@@ -178,7 +173,9 @@ function renderStreamgraph(series) {
     highlights.append('rect')
         .attr('class', 'highlight-area')
         .attr('width', streamgraph.between_day_distance + 2)
-        .attr('height', streamgraph.width);
+        .attr('height', streamgraph.width)
+        .attr('rx', 3)
+        .attr('ry', 3);
     
     // highlights.append('line')
     //     .attr('class', 'highlight-line')
@@ -195,9 +192,9 @@ function renderStreamgraph(series) {
         .attr('d', streamgraph.area)
         .attr('fill', d => party2color[d.key])
         // Give a smoother look at edges
-        .attr('stroke', '#fbf8ed')
-        .attr('stroke-width', 3)
-        .attr('stroke-opacity', 0.25);
+        .attr('stroke', '#e7e9e4')
+        .attr('stroke-width', 2)
+        // .attr('stroke-opacity', 0.25);
     
     streamgraph.g.selectAll('.grid')
         .data(d3.range(series[0].length))
@@ -230,13 +227,10 @@ function handleMouseover(d) {
     // d3.selectAll('.top-post')
     //     .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
     renderMinibar(d.stats.slice(0, minibar.n_top));
-    d3.select('#top-post')
-        .html(`[placeholder] - Top post of the day
-            <br/>${d.top_post.channel}
-            <br/>${d.top_post.user_name}
-            <br/>${d.top_post.text}
-            <br/>${d.top_post.permalink}
-        `);
+    d3.select('#top-post .username').text(d.top_post.user_name);
+    d3.select('#top-post .channel i').attr('class', d.top_post.channel == 'twitter' ? 'fab fa-twitter' : 'fab fa-facebook-f');
+    d3.select('#top-post .post').text(d.top_post.text.length > 300 ? d.top_post.text.substr(0,300) + ' ...' : d.top_post.text);
+    d3.select('#top-post a').attr('href', d.top_post.permalink);
 }
 
 function initMinibar(max_engagement) {
@@ -251,7 +245,7 @@ function initMinibar(max_engagement) {
         .range([0, minibar.width - minibar.margin.left - minibar.margin.right]);
 
     minibar.xAxis = d3.axisBottom(minibar.x)
-        .ticks(5, 's')
+        .ticks(4, 's')
         .tickSizeInner(-minibar.between_bar_distance * minibar.n_top)
         .tickSizeOuter(0)
         .tickPadding(12);
@@ -299,8 +293,8 @@ function renderMinibar(top_three_stats) {
     labels.exit().remove();
     labels.enter().append('text')
         .attr('class', 'bar-label-y')
-        .attr('x', -12)
-        .attr('text-anchor', 'end')
+        .attr('x', -minibar.margin.left)
+        .attr('text-anchor', 'start')
         .text(d => d.party)
         .attr('y', (d,i) => i * minibar.between_bar_distance);
     labels
