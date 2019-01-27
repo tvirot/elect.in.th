@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'The Matter';
     font-weight: 700;
-    src: url(../font/thematter-bold_6c43ee73.woff2) format("woff2"),
-    url(../font/thematter-bold_a41f650d.woff) format("woff");
+    src: url(font/thematter-bold_6c43ee73.woff2) format("woff2"),
+    url(font/thematter-bold_a41f650d.woff) format("woff");
 }
 
 html, body {
