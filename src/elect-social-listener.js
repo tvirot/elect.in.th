@@ -102,6 +102,16 @@ function init(raw) {
         });
     */
 
+    // Display legend
+    d3.select('#legend')
+        .selectAll('div')
+        .data(parties)
+        .enter().append('div')
+        .html((d,i) => `
+            <i class="fas fa-circle" style="color:${colors[i]};"></i>
+            ${d}
+        `);
+
     // Initialize streamgraph 
     let max_engagement = 0; 
     const data = []; 

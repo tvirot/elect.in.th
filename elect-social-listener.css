@@ -38,11 +38,34 @@ h1, h2, h3 {
     padding-top: 24px; 
 }
 
+#legend {
+    margin-bottom: 20px; 
+    padding: 0 10px; 
+}
+
+#legend div {
+    display: inline-block; 
+    padding-right: 20px; 
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    font-size: 12px; 
+}
+
+#legend i {
+    padding-right: 4px; 
+}
+
+#instruction { 
+    font-size: 12px;
+    margin-top: 28px;  
+    margin-bottom: 20px; 
+    color: #999;     
+}
+
 #streamgraph {
     display: inline-block;
     text-align: center;
     width: 49%; 
-    margin-top: 40px;
+    margin-top: 20px;
 }
 .grid, .xaxis path {
     stroke: #000;
@@ -81,8 +104,6 @@ h1, h2, h3 {
     top: 0px; 
     vertical-align: top;
     overflow: hidden;
-    box-sizing: border-box;
-    padding: 0 20px; 
 }
 
 .xaxis .tick line {
@@ -108,12 +129,13 @@ h1, h2, h3 {
     text-align: left;
     font-size: 12px; 
     cursor: pointer;
+    padding: 0 20px; 
+    box-sizing: border-box;
 }
 
 #top-post .username {
     font-family: 'Libre Baskerville', 'The Matter', serif;
     font-size: 13px; 
-    /* border-bottom: 1px solid #444; */
 }
 
 #top-post .channel {
@@ -124,6 +146,7 @@ blockquote {
     border-left: 4px solid #cdd0c7;
     margin-left: 8px;
     padding-left: 16px;
+    font-weight: 400;
 }
 
 #top-post:hover blockquote {
