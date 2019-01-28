@@ -74,7 +74,7 @@ const formatTime = d3.timeFormat('%a %b %d, %Y');
 
 let raw;
 d3.json('social-summary.json').then((json) => {
-    raw = json;
+    raw = json.reverse();
     // console.log(raw);
     init(raw)
 });
