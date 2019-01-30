@@ -43,12 +43,6 @@ h1, h2, h3 {
     padding: 0 10px;
 }
 
-@media screen and (max-width: 667px) {
-    #legend {
-        text-align: left;
-    }
-}
-
 #legend div {
     display: inline-block;
     padding-right: 20px;
@@ -67,6 +61,12 @@ h1, h2, h3 {
     color: #999;
 }
 
+.sunday {
+    font-size: 10px;
+    font-weight: bold;
+    fill: #999;
+}
+
 #streamgraph {
     display: inline-block;
     text-align: center;
@@ -79,6 +79,7 @@ h1, h2, h3 {
     stroke-opacity: 0.15;
     stroke-width: 1px;
 }
+
 .hoverarea {
     fill-opacity: 0;
     cursor: pointer;
@@ -127,8 +128,8 @@ h1, h2, h3 {
 
 .bar-label-x, .bar-label-y {
     font-family: 'Bai Jamjuree', serif;
-    font-weight: 400;
-    font-size: 13px;
+    font-weight: bold;
+    font-size: 12px;
     fill: #444;
 }
 
