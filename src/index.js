@@ -1,14 +1,17 @@
+import './style.css';
+import dataFile from './social-summary.json';
+
 const parties = [
-    "ชาติไทยพัฒนา", 
-    "เพื่อไทย", 
-    "อนาคตใหม่", 
-    "ไทยรักษาชาติ", 
-    "รวมพลังประชาชาติไทย", 
-    "พลังประชารัฐ", 
-    "ประชาธิปัตย์", 
-    "ภูมิใจไทย", 
+    "ชาติไทยพัฒนา",
+    "เพื่อไทย",
+    "อนาคตใหม่",
+    "ไทยรักษาชาติ",
+    "รวมพลังประชาชาติไทย",
+    "พลังประชารัฐ",
+    "ประชาธิปัตย์",
+    "ภูมิใจไทย",
     "ประชาชาติ",
-    "เพื่อชาติ", 
+    "เพื่อชาติ",
     "เพื่อธรรม"
 ];
 
@@ -30,7 +33,7 @@ const party2color = {};
 parties.forEach((d,i) => party2color[d] = colors[i]);
 console.log(party2color);
 
-/* ===== Streamgraph's Config ===== */ 
+/* ===== Streamgraph's Config ===== */
 const streamgraph = {
     width: 321, // Same fixed width for both desktop and mobile for simplicity
     side_margin: 30,
@@ -70,10 +73,10 @@ const minibar = {
 }
 
 const parseTime = d3.timeParse('%Y-%m-%d');
-const formatTime = d3.timeFormat('%a %b %d, %Y'); 
+const formatTime = d3.timeFormat('%a %b %d, %Y');
 
 let raw;
-d3.json('social-summary.json').then((json) => {
+d3.json(dataFile).then((json) => {
     raw = json.reverse();
     // console.log(raw);
     init(raw)
@@ -89,7 +92,7 @@ function init(raw) {
         .attr('class', 'top-post hidden')
         .html(d => {
             if(d.top_post.permalink.includes('facebook')) {
-                return `<div class="fb-post" 
+                return `<div class="fb-post"
                     data-href="${d.top_post.permalink}"
                     data-width="500">
                 </div>`
@@ -112,9 +115,9 @@ function init(raw) {
             ${d}
         `);
 
-    // Initialize streamgraph 
-    let max_engagement = 0; 
-    const data = []; 
+    // Initialize streamgraph
+    let max_engagement = 0;
+    const data = [];
 
     raw.forEach(d => {
         let entry = {};
@@ -126,8 +129,8 @@ function init(raw) {
     });
     // console.log(data);
 
-    const series = initStreamgraph(data); 
-    renderStreamgraph(series); 
+    const series = initStreamgraph(data);
+    renderStreamgraph(series);
 
     // Initialize mini barchart
     initMinibar(max_engagement);
@@ -152,31 +155,31 @@ function initStreamgraph(data) {
         .domain(d3.extent(d3.merge((d3.merge(series)))))
         .range([streamgraph.width - streamgraph.side_margin, streamgraph.side_margin]);
 
-    streamgraph.area        
+    streamgraph.area
         .x((d, i) => streamgraph.x(i))
         // Add extra spaces between chunks
         // .y0(d => Math.max(streamgraph.y(d[0]) - 2, streamgraph.y(d[1])))
         // .y1(d => Math.min(streamgraph.y(d[1]) + 2, streamgraph.y(d[0])))
         .y0(d => streamgraph.y(d[0]))
         .y1(d => streamgraph.y(d[1]));
-    
-    return series; 
+
+    return series;
 }
 
-function renderStreamgraph(series) { 
+function renderStreamgraph(series) {
     const highlights = streamgraph.g.selectAll('.highlight')
         .data(raw)
         .enter().append('g')
         .attr('class', 'highlight hidden')
         .attr('transform', (d,i) => `translate(${streamgraph.x(i) - streamgraph.between_day_distance / 2 - 2}, 0)`);
-        
+
     highlights.append('rect')
         .attr('class', 'highlight-area')
         .attr('width', streamgraph.between_day_distance + 2)
         .attr('height', streamgraph.width)
         .attr('rx', 3)
         .attr('ry', 3);
-    
+
     // highlights.append('line')
     //     .attr('class', 'highlight-line')
     //     .attr('y2', streamgraph.width);
@@ -185,7 +188,7 @@ function renderStreamgraph(series) {
     //     .attr('x1', (d,i) => streamgraph.between_day_distance)
     //     .attr('x2', (d,i) => streamgraph.between_day_distance)
     //     .attr('y2', streamgraph.width);
-    
+
     streamgraph.g.selectAll('path')
         .data(series)
         .enter().append('path')
@@ -195,14 +198,14 @@ function renderStreamgraph(series) {
         .attr('stroke', '#e7e9e4')
         .attr('stroke-width', 2)
         // .attr('stroke-opacity', 0.25);
-    
+
     streamgraph.g.selectAll('.grid')
         .data(d3.range(series[0].length))
         .enter().append('line')
         .classed('grid', true)
         .attr('x1', (d,i) => streamgraph.x(i) + streamgraph.between_day_distance / 2)
         .attr('x2', (d,i) => streamgraph.x(i) + streamgraph.between_day_distance / 2)
-        // (i - 2) is a quick hack to draw a longer grid on Sunday. Our dataset starts on Thursday. 
+        // (i - 2) is a quick hack to draw a longer grid on Sunday. Our dataset starts on Thursday.
         .attr('y1', (d,i) => ((i - 2) % 7 == 0) ? 0 : 15)
         .attr('y2', (d,i) => ((i - 2) % 7 == 0) ? streamgraph.width : 35);
 
@@ -217,7 +220,7 @@ function renderStreamgraph(series) {
         .on('mouseover', handleMouseover);
 
     streamgraph.g.attr('transform', `rotate(90 ${streamgraph.width/2} ${streamgraph.width/2}) translate(${streamgraph.between_day_distance / 2} 0)`);
-}   
+}
 
 function handleMouseover(d) {
     d3.select('#date')
@@ -238,7 +241,7 @@ function initMinibar(max_engagement) {
         .attr('width', minibar.width)
         .attr('height', minibar.between_bar_distance * minibar.n_top + minibar.margin.top + minibar.margin.bottom);
     minibar.g = minibar.svg.append('g')
-        .attr('transform', `translate(${minibar.margin.left} ${minibar.margin.top})`); 
+        .attr('transform', `translate(${minibar.margin.left} ${minibar.margin.top})`);
 
     minibar.x
         .domain([0, max_engagement])
@@ -263,7 +266,7 @@ function initMinibar(max_engagement) {
         .attr('y', minibar.between_bar_distance * minibar.n_top + 36)
         .attr('text-anchor', 'middle')
         .text('การมีส่วนร่วม');
-    
+
     // renderMinibar(raw[0].stats.slice(0, minibar.n_top));
 }
 
@@ -286,10 +289,10 @@ function renderMinibar(top_three_stats) {
         .attr('fill', d => party2color[d.party])
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
-        
+
     const labels = minibar.g.selectAll('.bar-label-y')
         .data(top_three_stats, (d,i) => i);
-    
+
     labels.exit().remove();
     labels.enter().append('text')
         .attr('class', 'bar-label-y')
