@@ -1,48 +1,13 @@
+import { formatThaiDate } from './utils/formatThaiTime';
+import { PARTIES, COLORS } from './constants';
 import './style.css';
 import dataFile from './social-summary.json';
 
-const parties = [
-    "ชาติไทยพัฒนา",
-    "เพื่อไทย",
-    "อนาคตใหม่",
-    "ไทยรักษาชาติ",
-    "รวมพลังประชาชาติไทย",
-    "พลังประชารัฐ",
-    "ประชาธิปัตย์",
-    "ภูมิใจไทย",
-    "ประชาชาติ",
-    "เพื่อชาติ",
-    "เพื่อธรรม"
-];
+const partyColor = d3.scaleOrdinal()
+  .domain(PARTIES)
+  .range(COLORS);
 
-const colors = [
-    '#a50026',
-    '#DE0505', // '#d73027',
-    '#f47932', // '#f46d43',
-    '#fdae61',
-    '#F6CD4A', // '#fee090',
-    '#546d40', // '#abd9e9',
-    '#40BDE7', // '#74add1',
-    '#4575b4',
-    '#313695',
-    '#B27E7D', // '#ffffbf',
-    '#F9C8D9' // '#e0f3f8'
-];
-
-const party2color = {};
-parties.forEach((d,i) => party2color[d] = colors[i]);
-console.log(party2color);
-
-const thaiLocale = d3.timeFormatLocale({
-  dateTime: "%A, %e %B %Y г. %X",
-  date: '%d %m %Y',
-  time: '%H:%M:%S',
-  periods: ["AM", "PM"],
-  days: ["วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัส", "วันศุกร์", "วันเสาร์"],
-  shortDays: ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."],
-  months: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"],
-  shortMonths: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
-});
+const parseTime = d3.timeParse('%Y-%m-%d');
 
 /* ===== Streamgraph's Config ===== */
 const streamgraph = {
@@ -56,12 +21,12 @@ const streamgraph = {
     y: d3.scaleLinear(),
 
     stack: d3.stack()
-        .keys(parties)
-        .order(d3.stackOrderDescending)
+        .keys(PARTIES)
+        .order(d3.stackOrderInsideOut)
         .offset(d3.stackOffsetWiggle),
 
     area: d3.area()
-        .curve(d3.curveCardinal.tension(0.25)) // Smooth out wiggles
+        .curve(d3.curveCardinal.tension(0.5)) // Smooth out wiggles
 }
 
 /* ===== Mini bar chart's config ===== */
@@ -83,15 +48,22 @@ const minibar = {
     transition: d3.transition().duration(250)
 }
 
-const parseTime = d3.timeParse('%Y-%m-%d');
-const formatTime = t => `${thaiLocale.format('%a %_d %b')(t)} ${t.getFullYear() + 543}`;
-
 let raw;
 d3.json(dataFile).then((json) => {
     raw = json.reverse();
     // console.log(raw);
     init(raw)
 });
+
+// Display legend
+d3.select('#legend')
+    .selectAll('div')
+    .data(PARTIES)
+    .enter().append('div')
+    .html(d => `
+        <i class="fas fa-circle" style="color:${partyColor(d)};"></i>
+        ${d}
+    `);
 
 function init(raw) {
     /*
@@ -116,16 +88,6 @@ function init(raw) {
         });
     */
 
-    // Display legend
-    d3.select('#legend')
-        .selectAll('div')
-        .data(parties)
-        .enter().append('div')
-        .html((d,i) => `
-            <i class="fas fa-circle" style="color:${colors[i]};"></i>
-            ${d}
-        `);
-
     // Initialize streamgraph
     let max_engagement = 0;
     const data = [];
@@ -133,7 +95,7 @@ function init(raw) {
     raw.forEach(d => {
         let entry = {};
         entry.date = d.created_date_bkk;
-        parties.forEach(party => { entry[party] = 5; }); // Init with 1 (avoid 0)
+        PARTIES.forEach(party => { entry[party] = 5; }); // Init with 1 (avoid 0)
         d.stats.forEach(dd => { entry[dd.party] = ++dd.total_engagement; });
         max_engagement = Math.max(max_engagement, d3.max(d.stats.map(dd => dd.total_engagement)));
         data.push(entry);
@@ -204,7 +166,7 @@ function renderStreamgraph(series) {
         .data(series)
         .enter().append('path')
         .attr('d', streamgraph.area)
-        .attr('fill', d => party2color[d.key])
+        .attr('fill', d => partyColor(d.key))
         // Give a smoother look at edges
         .attr('stroke', '#e7e9e4')
         .attr('stroke-width', 2)
@@ -235,7 +197,7 @@ function renderStreamgraph(series) {
 
 function handleMouseover(d) {
     d3.select('#date')
-        .text(formatTime(parseTime(d.created_date_bkk)));
+        .text(formatThaiDate(parseTime(d.created_date_bkk)));
     d3.selectAll('.highlight')
         .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
     // d3.selectAll('.top-post')
@@ -292,12 +254,12 @@ function renderMinibar(top_three_stats) {
         .attr('rx', 3)
         .attr('ry', 3)
         .attr('y', (d,i) => (i - 0.5) * minibar.between_bar_distance)
-        .attr('fill', d => party2color[d.party])
+        .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
     bars
         .attr('y', (d,i) => (i - 0.5) * minibar.between_bar_distance)
-        .attr('fill', d => party2color[d.party])
+        .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
 
