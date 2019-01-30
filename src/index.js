@@ -37,7 +37,7 @@ const minibar = {
         left: 10,
         right: 10
     },
-    between_bar_distance: 24, // 8px between bars
+    between_bar_distance: 30, // 8px between bars
     n_top: 3,
 
     svg: d3.select('#minibar svg'),
@@ -263,12 +263,12 @@ function renderMinibar(top_three_stats) {
         .attr('height', Math.floor(minibar.between_bar_distance * 0.3))
         .attr('rx', 3)
         .attr('ry', 3)
-        .attr('y', (d,i) => (i - 0.5 + 0.3) * minibar.between_bar_distance)
+        .attr('y', (d,i) => (i - 0.5 + 0.45) * minibar.between_bar_distance)
         .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
     bars
-        .attr('y', (d, i) => (i - 0.5 + 0.3) * minibar.between_bar_distance)
+        .attr('y', (d, i) => (i - 0.5 + 0.45) * minibar.between_bar_distance)
         .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
