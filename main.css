@@ -1,0 +1,208 @@
+@font-face {
+    font-family: 'The Matter';
+    font-weight: 700;
+    src: url(../6c43ee7379487caf2ea5104f200c0e93.woff2) format("woff2"),
+    url(../a41f650df22ec7f640d943b2c7ecc401.woff) format("woff");
+}
+
+html, body {
+    /* background: #ebe4cf;  */
+    background: #e7e9e4;
+    font-family: 'Bai Jamjuree', serif;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #444;
+    line-height: 1.5;
+    font-size: 16px; 
+    font-weight: 300;
+}
+
+h1, h2, h3 {
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    text-align: center;   
+}
+
+.hidden {
+    display: none;
+}
+
+#editorial {
+    text-align: center;
+    margin: 40px auto;
+}
+
+#footnote {
+    font-size: 14px;
+    color: #666;
+    padding-top: 24px; 
+}
+
+#legend {
+    margin-bottom: 20px; 
+    padding: 0 10px; 
+}
+
+#legend div {
+    display: inline-block; 
+    padding-right: 20px; 
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    font-size: 12px; 
+}
+
+#legend i {
+    padding-right: 4px; 
+}
+
+#instruction { 
+    font-size: 12px;
+    margin-top: 28px;  
+    margin-bottom: 20px; 
+    color: #999;     
+}
+
+#streamgraph {
+    display: inline-block;
+    text-align: center;
+    width: 49%; 
+    margin-top: 20px;
+}
+.grid, .xaxis path {
+    stroke: #000;
+    stroke-opacity: 0.15;
+    stroke-width: 1px; 
+}
+.hoverarea {
+    fill-opacity: 0; 
+    cursor: pointer; 
+}
+.highlight-area {
+    fill: #cdd0c7;
+    fill-opacity: 0.4; 
+}
+/* .highlight-line {
+    stroke: #e6e0cb;
+    stroke-width: 1px; 
+} */
+
+#date {
+    display: inline-block;
+    border-bottom: 1px solid #ef314a;
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 15px 0;
+    padding: 5px 0;
+}
+
+#reference-container {
+    display: inline-block;
+    width: 49%; 
+    text-align: center;
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 0px; 
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.xaxis .tick line {
+    stroke: #e7e9e4;
+    stroke-width: 1px;
+}
+
+.xaxis .tick text, .bar-label {
+    font-family: 'Bai Jamjuree', serif;
+    font-weight: 400;
+    font-size: 12px;
+    fill: #444;
+}
+
+.bar-label-x, .bar-label-y {
+    font-family: 'Bai Jamjuree', serif;
+    font-weight: 400;
+    font-size: 13px;
+    fill: #444;
+}
+
+#top-post {
+    text-align: left;
+    font-size: 12px; 
+    cursor: pointer;
+    padding: 0 20px; 
+    box-sizing: border-box;
+}
+
+#top-post .username {
+    font-family: 'Libre Baskerville', 'The Matter', serif;
+    font-size: 13px; 
+}
+
+#top-post .channel {
+    padding-left: 8px; 
+}
+
+blockquote {
+    border-left: 4px solid #cdd0c7;
+    margin-left: 8px;
+    padding-left: 16px;
+    font-weight: 400;
+}
+
+#top-post:hover blockquote {
+    border-left: 4px solid #ef314a;
+}
+
+a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+}
+
+@media screen and (max-device-width: 667px){
+    html, body {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    h1, h2, h3 {
+        padding: 0 20px;
+    }
+    
+    #editorial {
+        padding: 0 20px;
+    }
+
+    #streamgraph {
+        width: 100%;
+    }
+
+    #reference-container {
+        border-bottom: 20px solid rgba(231,233,228,0.0);
+        box-shadow: 0 5px 5px #00000011;
+        max-height: 400px;
+        width: 100%;
+        bottom: 0; 
+        background: rgba(231,233,228,0.95);
+    } 
+
+    blockquote {
+        width: 321px;
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-device-width: 667px) and (orientation: landscape) {
+    #reference-container {
+        max-height: 200px;
+    } 
+
+    blockquote {
+        width: 100%; 
+    }
+}
+
+@media screen and (min-width: 1024px){
+    #editorial {
+        width: 75%;
+    }
+}
