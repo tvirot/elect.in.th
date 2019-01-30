@@ -43,6 +43,12 @@ h1, h2, h3 {
     padding: 0 10px;
 }
 
+@media screen and (max-width: 667px) {
+    #legend {
+        text-align: left;
+    }
+}
+
 #legend div {
     display: inline-block;
     padding-right: 20px;
@@ -67,6 +73,7 @@ h1, h2, h3 {
     width: 49%;
     margin-top: 20px;
 }
+
 .grid, .xaxis path {
     stroke: #000;
     stroke-opacity: 0.15;
