@@ -89,15 +89,13 @@ function init(raw) {
 
     // Initialize streamgraph
     let max_engagement = 0;
-    const data = [];
-
-    raw.forEach(d => {
+    const data = raw.map(d => {
         let entry = {};
         entry.date = d.created_date_bkk;
         PARTIES.forEach(party => { entry[party] = 5; }); // Init with 1 (avoid 0)
         d.stats.forEach(dd => { entry[dd.party] = ++dd.total_engagement; });
         max_engagement = Math.max(max_engagement, d3.max(d.stats.map(dd => dd.total_engagement)));
-        data.push(entry);
+        return entry;
     });
     // console.log(data);
 
