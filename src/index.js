@@ -34,8 +34,8 @@ const minibar = {
     margin: {
         top: 24,
         bottom: 48,
-        left: 140,
-        right: 0
+        left: 10,
+        right: 10
     },
     between_bar_distance: 24, // 8px between bars
     n_top: 3,
@@ -222,14 +222,14 @@ function initMinibar(max_engagement) {
     minibar.xAxis = d3.axisBottom(minibar.x)
         .ticks(4, 's')
         .tickSizeInner(-minibar.between_bar_distance * minibar.n_top)
-        .tickSizeOuter(0)
+        .tickSizeOuter(4)
         .tickPadding(12);
 
     minibar.bars = minibar.g.append('g');
 
     minibar.g.append('g')
         .attr('class', 'xaxis')
-        .attr('transform', `translate(0 ${minibar.between_bar_distance * (minibar.n_top - 0.5)})`)
+        .attr('transform', `translate(0, ${minibar.between_bar_distance * (minibar.n_top - 0.5)})`)
         .call(minibar.xAxis);
 
     minibar.g.append('text')
@@ -249,15 +249,15 @@ function renderMinibar(top_three_stats) {
     bars.exit().remove();
     bars.enter().append('rect')
         .attr('class', 'bar')
-        .attr('height', minibar.between_bar_distance * 0.6)
+        .attr('height', Math.floor(minibar.between_bar_distance * 0.3))
         .attr('rx', 3)
         .attr('ry', 3)
-        .attr('y', (d,i) => (i - 0.5) * minibar.between_bar_distance)
+        .attr('y', (d,i) => (i - 0.5 + 0.3) * minibar.between_bar_distance)
         .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
     bars
-        .attr('y', (d,i) => (i - 0.5) * minibar.between_bar_distance)
+        .attr('y', (d, i) => (i - 0.5 + 0.3) * minibar.between_bar_distance)
         .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
@@ -269,9 +269,12 @@ function renderMinibar(top_three_stats) {
     labels.enter().append('text')
         .attr('class', 'bar-label-y')
         .attr('x', -minibar.margin.left)
+        .attr('y', (d, i) => i * minibar.between_bar_distance)
+        .attr('dx', 10)
+        .attr('dy', -6)
         .attr('text-anchor', 'start')
-        .text(d => d.party)
-        .attr('y', (d,i) => i * minibar.between_bar_distance);
+        .text(d => d.party);
+
     labels
         .text(d => d.party)
         .attr('y', (d,i) => i * minibar.between_bar_distance);
