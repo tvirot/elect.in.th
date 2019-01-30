@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'The Matter';
     font-weight: 700;
-    src: url(../6c43ee7379487caf2ea5104f200c0e93.woff2) format("woff2"),
-    url(../a41f650df22ec7f640d943b2c7ecc401.woff) format("woff");
+    src: url(./6c43ee7379487caf2ea5104f200c0e93.woff2) format("woff2"),
+    url(./a41f650df22ec7f640d943b2c7ecc401.woff) format("woff");
 }
 
 html, body {
