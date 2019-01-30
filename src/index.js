@@ -25,8 +25,7 @@ const streamgraph = {
         .order(d3.stackOrderInsideOut)
         .offset(d3.stackOffsetWiggle),
 
-    area: d3.area()
-        .curve(d3.curveCardinal.tension(0.5)) // Smooth out wiggles
+    area: d3.area().curve(d3.curveBasis) // Smooth out wiggles
 }
 
 /* ===== Mini bar chart's config ===== */
@@ -52,7 +51,7 @@ let raw;
 d3.json(dataFile).then((json) => {
     raw = json.reverse();
     // console.log(raw);
-    init(raw)
+    init(raw);
 });
 
 // Display legend
@@ -169,8 +168,8 @@ function renderStreamgraph(series) {
         .attr('fill', d => partyColor(d.key))
         // Give a smoother look at edges
         .attr('stroke', '#e7e9e4')
-        .attr('stroke-width', 2)
-        // .attr('stroke-opacity', 0.25);
+        .attr('stroke-width', 1)
+        .attr('stroke-opacity', 0.25);
 
     streamgraph.g.selectAll('.grid')
         .data(d3.range(series[0].length))
