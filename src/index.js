@@ -84,7 +84,7 @@ const minibar = {
 }
 
 const parseTime = d3.timeParse('%Y-%m-%d');
-const formatTime = t => `${thaiLocale.format('%a %_d %b')(t)} ${t.getFullYear()+543}`;
+const formatTime = t => `${thaiLocale.format('%a %_d %b')(t)} ${t.getFullYear() + 543}`;
 
 let raw;
 d3.json(dataFile).then((json) => {
