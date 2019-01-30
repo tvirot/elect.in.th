@@ -1,4 +1,4 @@
-import { formatThaiDate } from './utils/formatThaiTime';
+import { formatFullDate, formatDate } from './utils/formatThaiTime';
 import { PARTIES, COLORS } from './constants';
 import './style.css';
 import dataFile from './social-summary.json';
@@ -181,6 +181,19 @@ function renderStreamgraph(series) {
         .attr('y1', (d,i) => ((i - 2) % 7 == 0) ? 0 : 15)
         .attr('y2', (d,i) => ((i - 2) % 7 == 0) ? streamgraph.width : 35);
 
+    streamgraph.g.selectAll('.sunday')
+        .data(raw)
+        .enter()
+        .filter((d, i) => (i - 2) % 7 == 0)
+        .append('g')
+        .classed('sunday', true)
+        .attr('transform', (d, i) => `translate(${streamgraph.x(i*7+2) + streamgraph.between_day_distance / 2 - 4}, ${10})`)
+        .append('g')
+        .attr('transform', 'rotate(-90)')
+        .append('text')
+        .style('text-anchor', 'end')
+        .text(d => formatDate(parseTime(d.created_date_bkk)));
+
     streamgraph.g.selectAll('.hoverarea')
         .data(raw)
         .enter().append('rect')
@@ -196,7 +209,7 @@ function renderStreamgraph(series) {
 
 function handleMouseover(d) {
     d3.select('#date')
-        .text(formatThaiDate(parseTime(d.created_date_bkk)));
+        .text(formatFullDate(parseTime(d.created_date_bkk)));
     d3.selectAll('.highlight')
         .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
     // d3.selectAll('.top-post')

@@ -9,11 +9,16 @@ const ThaiLocale = d3.timeFormatLocale({
   shortMonths: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
 });
 
-function formatThaiDate(t){
+function formatFullDate(t){
   return `${ThaiLocale.format('%a %_d %b')(t)} ${t.getFullYear() + 543}`;
+}
+
+function formatDate(t) {
+  return `${ThaiLocale.format('%_d %b')(t)} ${t.getFullYear() + 543}`;
 }
 
 export {
   ThaiLocale,
-  formatThaiDate,
+  formatFullDate,
+  formatDate,
 };
