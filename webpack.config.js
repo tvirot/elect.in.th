@@ -2,6 +2,19 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const cssRules = process.env.NODE_ENV === 'production'
+  ? [{
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        // you can specify a publicPath here
+        // by default it use publicPath in webpackOptions.output
+        publicPath: './'
+      }
+    },
+    'css-loader'
+  ]
+  : ['style-loader', 'css-loader'];
+
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -23,17 +36,7 @@ module.exports = {
     rules: [
         {
           test: /\.css$/,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                // you can specify a publicPath here
-                // by default it use publicPath in webpackOptions.output
-                publicPath: './'
-              }
-            },
-            'css-loader'
-          ]
+          use: cssRules
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/,
