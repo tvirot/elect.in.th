@@ -106,7 +106,7 @@ function init(raw) {
     initMinibar(max_engagement);
 
     // Pre-select first date
-    handleMouseover(raw[0]);
+    handleMouseover(raw[1]);
 }
 
 function initStreamgraph(data) {
