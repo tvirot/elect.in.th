@@ -74,7 +74,7 @@ h1, h2, h3 {
     margin-top: 20px;
 }
 
-.grid, .xaxis path {
+.grid, .xaxis path, .xaxis line {
     stroke: #000;
     stroke-opacity: 0.15;
     stroke-width: 1px;
@@ -114,23 +114,30 @@ h1, h2, h3 {
     overflow: hidden;
 }
 
-.xaxis .tick line {
+.xaxis2 .tick line {
     stroke: #e7e9e4;
     stroke-width: 1px;
+}
+
+.xaxis2 path {
+    opacity: 0;
 }
 
 .xaxis .tick text, .bar-label {
     font-family: 'Bai Jamjuree', serif;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 10px;
     fill: #444;
 }
 
 .bar-label-x, .bar-label-y {
     font-family: 'Bai Jamjuree', serif;
-    font-weight: bold;
     font-size: 12px;
     fill: #444;
+}
+
+.bar-label-y {
+    font-weight: bold;
 }
 
 #top-post {
@@ -212,5 +219,12 @@ a {
 @media screen and (min-width: 1024px){
     #editorial {
         width: 75%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    #minibar {
+        margin-top: 10px;
+        margin-bottom: 20px;
     }
 }

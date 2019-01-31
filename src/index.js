@@ -32,10 +32,10 @@ const streamgraph = {
 const minibar = {
     width: 321, // Fixed width for simplicity
     margin: {
-        top: 24,
-        bottom: 48,
-        left: 10,
-        right: 10
+        top: 20,
+        bottom: 10,
+        left: 18,
+        right: 18
     },
     between_bar_distance: 30, // 8px between bars
     n_top: 3,
@@ -228,12 +228,19 @@ function initMinibar(max_engagement) {
 
     minibar.x
         .domain([0, max_engagement])
+        .nice(10)
         .range([0, minibar.width - minibar.margin.left - minibar.margin.right]);
 
-    minibar.xAxis = d3.axisBottom(minibar.x)
-        .ticks(4, 's')
+    const xAxis1 = d3.axisBottom(minibar.x)
+        .ticks(5)
+        .tickSizeInner(4)
+        .tickSizeOuter(0)
+        .tickPadding(6);
+
+    const xAxis2 = d3.axisBottom(minibar.x)
+        .ticks(10)
         .tickSizeInner(-minibar.between_bar_distance * minibar.n_top)
-        .tickSizeOuter(4)
+        .tickSizeOuter(0)
         .tickPadding(12);
 
     minibar.bars = minibar.g.append('g');
@@ -241,13 +248,20 @@ function initMinibar(max_engagement) {
     minibar.g.append('g')
         .attr('class', 'xaxis')
         .attr('transform', `translate(0, ${minibar.between_bar_distance * (minibar.n_top - 0.5)})`)
-        .call(minibar.xAxis);
+        .call(xAxis1);
+
+    minibar.g.append('g')
+        .attr('class', 'xaxis2')
+        .attr('transform', `translate(0, ${minibar.between_bar_distance * (minibar.n_top - 0.5)})`)
+        .call(xAxis2)
+        .selectAll('text')
+        .remove();
 
     minibar.g.append('text')
         .attr('class', 'bar-label-x')
-        .attr('x', (minibar.width - minibar.margin.left - minibar.margin.right) / 2)
-        .attr('y', minibar.between_bar_distance * minibar.n_top + 36)
-        .attr('text-anchor', 'middle')
+        .attr('x', (minibar.width - minibar.margin.right - minibar.margin.left))
+        .attr('y', minibar.between_bar_distance * minibar.n_top - 20)
+        .attr('text-anchor', 'end')
         .text('การมีส่วนร่วม');
 
     // renderMinibar(raw[0].stats.slice(0, minibar.n_top));
@@ -281,7 +295,7 @@ function renderMinibar(top_three_stats) {
         .attr('class', 'bar-label-y')
         .attr('x', -minibar.margin.left)
         .attr('y', (d, i) => i * minibar.between_bar_distance)
-        .attr('dx', 10)
+        .attr('dx', minibar.margin.left)
         .attr('dy', -6)
         .attr('text-anchor', 'start')
         .text(d => d.party);
