@@ -106,7 +106,7 @@ function init(raw) {
     initMinibar(max_engagement);
 
     // Pre-select first date
-    handleMouseover(raw[1]);
+    handleMouseover(raw[1], 1);
 }
 
 function initStreamgraph(data) {
@@ -162,6 +162,7 @@ function renderStreamgraph(series) {
     //     .attr('y2', streamgraph.width);
 
     streamgraph.g.append('g').classed('path-layer', true)
+        .style('opacity', 0.3)
         .selectAll('path')
         .data(series)
         .enter().append('path')
@@ -172,16 +173,27 @@ function renderStreamgraph(series) {
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.25);
 
-    // streamgraph.g.append('g').classed('path2-layer', true)
-    //     .selectAll('path')
-    //     .data(series)
-    //     .enter().append('path')
-    //     .attr('d', streamgraph.area)
-    //     .attr('fill', d => partyColor(d.key))
-    //     // Give a smoother look at edges
-    //     .attr('stroke', '#e7e9e4')
-    //     .attr('stroke-width', 1)
-    //     .attr('stroke-opacity', 0.25);
+    streamgraph.clipRect = streamgraph.svg.append('defs')
+        .append('clipPath')
+            .attr('id', 'clip-selection')
+        .append('rect')
+            .attr('rx', 3)
+            .attr('ry', 3)
+            .attr('x', streamgraph.x(1) - streamgraph.between_day_distance / 2 - 2)
+            .attr('width', streamgraph.between_day_distance + 2)
+            .attr('height', streamgraph.width);
+
+    streamgraph.g.append('g').classed('path2-layer', true)
+        .attr('clip-path', 'url(#clip-selection)')
+        .selectAll('path')
+        .data(series)
+        .enter().append('path')
+        .attr('d', streamgraph.area)
+        .attr('fill', d => partyColor(d.key))
+        // Give a smoother look at edges
+        .attr('stroke', '#e7e9e4')
+        .attr('stroke-width', 1)
+        .attr('stroke-opacity', 0.25);
 
     streamgraph.g.append('g').classed('grid-layer', true)
         .selectAll('.grid')
@@ -220,11 +232,13 @@ function renderStreamgraph(series) {
     streamgraph.g.attr('transform', `rotate(90 ${streamgraph.width/2} ${streamgraph.width/2}) translate(${streamgraph.between_day_distance / 2} 0)`);
 }
 
-function handleMouseover(d) {
+function handleMouseover(d, i) {
     d3.select('#date')
         .text(formatFullDate(parseTime(d.created_date_bkk)));
     d3.selectAll('.highlight')
         .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
+    streamgraph.clipRect
+        .attr('x', streamgraph.x(i) - streamgraph.between_day_distance / 2 - 2)
     // d3.selectAll('.top-post')
     //     .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
     renderMinibar(d.stats.slice(0, minibar.n_top));
