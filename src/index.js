@@ -34,8 +34,8 @@ const minibar = {
     margin: {
         top: 20,
         bottom: 10,
-        left: 8,
-        right: 18
+        left: 12,
+        right: 12
     },
     between_bar_distance: 30, // 8px between bars
     n_top: 3,
@@ -248,7 +248,9 @@ function initMinibar(max_engagement) {
     minibar.g.append('g')
         .attr('class', 'xaxis')
         .attr('transform', `translate(0, ${minibar.between_bar_distance * (minibar.n_top - 0.5)})`)
-        .call(xAxis1);
+        .call(xAxis1)
+        .selectAll('text')
+        .attr('dx', 3)
 
     minibar.g.append('g')
         .attr('class', 'xaxis2')
@@ -260,6 +262,7 @@ function initMinibar(max_engagement) {
     minibar.g.append('text')
         .attr('class', 'bar-label-x')
         .attr('x', (minibar.width - minibar.margin.right - minibar.margin.left))
+        .attr('dx', 3)
         .attr('y', minibar.between_bar_distance * minibar.n_top - 20)
         .attr('text-anchor', 'end')
         .text('การมีส่วนร่วม');

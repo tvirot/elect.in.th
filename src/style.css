@@ -134,6 +134,7 @@ a {
   font-weight: 400;
   font-size: 10px;
   fill: #444;
+  text-anchor: end;
 }
 
 .bar-label-x, .bar-label-y {
@@ -210,7 +211,7 @@ a {
   right: 24px;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .post-author .channel {
@@ -264,12 +265,16 @@ blockquote {
   }
 
   #reference-container {
-    border-bottom: 10px solid rgba(231,233,228,0.0);
+    border-bottom: 0px solid rgba(231,233,228,0.0);
     box-shadow: 0 5px 5px #00000011;
     max-height: 400px;
     width: 100%;
     bottom: 0;
     background: rgba(231,233,228,0.95);
+  }
+
+  #top-post {
+    padding: 0 10px;
   }
 
   blockquote {
