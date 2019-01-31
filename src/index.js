@@ -244,7 +244,8 @@ function handleMouseover(d, i) {
     renderMinibar(d.stats.slice(0, minibar.n_top));
     d3.select('#top-post .username').text(d.top_post.user_name);
     d3.select('#top-post .channel i').attr('class', d.top_post.channel == 'twitter' ? 'fab fa-twitter' : 'fab fa-facebook-f');
-    d3.select('#top-post .post').text(d.top_post.text.length > 300 ? d.top_post.text.substr(0,300) + ' ...' : d.top_post.text);
+    const text = d.top_post.text.replace(/http/gi, ' http');
+    d3.select('#top-post .post').text(text.length > 300 ? text.substr(0,300) + ' ...' : text);
     d3.select('#top-post a').attr('href', d.top_post.permalink);
 }
 
