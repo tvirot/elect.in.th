@@ -1,230 +1,302 @@
 @font-face {
-    font-family: 'The Matter';
-    font-weight: 700;
-    src: url(./font/thematter-bold_6c43ee73.woff2) format("woff2"),
-    url(./font/thematter-bold_a41f650d.woff) format("woff");
+  font-family: 'The Matter';
+  font-weight: 700;
+  src: url(./font/thematter-bold_6c43ee73.woff2) format("woff2"),
+  url(./font/thematter-bold_a41f650d.woff) format("woff");
 }
 
 html, body {
-    /* background: #ebe4cf;  */
-    background: #e7e9e4;
-    font-family: 'Bai Jamjuree', serif;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    color: #444;
-    line-height: 1.5;
-    font-size: 16px;
-    font-weight: 300;
+  background: #e7e9e4;
+  font-family: 'Bai Jamjuree', serif;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #444;
+  line-height: 1.5;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 h1, h2, h3 {
-    font-family: 'Libre Baskerville', 'The Matter', serif;
-    text-align: center;
-}
-
-.hidden {
-    display: none;
-}
-
-#editorial {
-    text-align: center;
-    margin: 40px auto;
-}
-
-#footnote {
-    font-size: 14px;
-    color: #666;
-    padding-top: 24px;
-}
-
-#legend {
-    margin-bottom: 20px;
-    padding: 0 10px;
-}
-
-#legend div {
-    display: inline-block;
-    padding-right: 20px;
-    font-family: 'Libre Baskerville', 'The Matter', serif;
-    font-size: 12px;
-}
-
-#legend i {
-    padding-right: 4px;
-}
-
-#instruction {
-    font-size: 12px;
-    margin-top: 28px;
-    margin-bottom: 20px;
-    color: #999;
-}
-
-.sunday {
-    font-size: 10px;
-    font-weight: bold;
-    fill: #999;
-}
-
-#streamgraph {
-    display: inline-block;
-    text-align: center;
-    width: 49%;
-    margin-top: 20px;
-}
-
-.grid, .xaxis path, .xaxis line {
-    stroke: #000;
-    stroke-opacity: 0.15;
-    stroke-width: 1px;
-}
-
-.hoverarea {
-    fill-opacity: 0;
-    cursor: pointer;
-}
-.highlight-area {
-    fill: #cdd0c7;
-    fill-opacity: 0.4;
-}
-/* .highlight-line {
-    stroke: #e6e0cb;
-    stroke-width: 1px;
-} */
-
-#date {
-    display: inline-block;
-    border-bottom: 1px solid #ef314a;
-    font-family: 'Libre Baskerville', 'The Matter', serif;
-    font-style: italic;
-    line-height: 1.4;
-    margin: 15px 0;
-    padding: 5px 0;
-}
-
-#reference-container {
-    display: inline-block;
-    width: 49%;
-    text-align: center;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0px;
-    vertical-align: top;
-    overflow: hidden;
-}
-
-.xaxis2 .tick line {
-    stroke: #e7e9e4;
-    stroke-width: 1px;
-}
-
-.xaxis2 path {
-    opacity: 0;
-}
-
-.xaxis .tick text, .bar-label {
-    font-family: 'Bai Jamjuree', serif;
-    font-weight: 400;
-    font-size: 10px;
-    fill: #444;
-}
-
-.bar-label-x, .bar-label-y {
-    font-family: 'Bai Jamjuree', serif;
-    font-size: 12px;
-    fill: #444;
-}
-
-.bar-label-y {
-    font-weight: bold;
-}
-
-#top-post {
-    text-align: left;
-    font-size: 12px;
-    cursor: pointer;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-#top-post .username {
-    font-family: 'Libre Baskerville', 'The Matter', serif;
-    font-size: 13px;
-}
-
-#top-post .channel {
-    padding-left: 8px;
-}
-
-blockquote {
-    border-left: 4px solid #cdd0c7;
-    margin-left: 8px;
-    padding-left: 16px;
-    font-weight: 400;
-}
-
-#top-post:hover blockquote {
-    border-left: 4px solid #ef314a;
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  text-align: center;
 }
 
 a {
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
+  color: inherit;
+  /* blue colors for links too */
+  text-decoration: inherit;
+  /* no underline */
+}
+
+.hidden {
+  display: none;
+}
+
+#editorial {
+  text-align: center;
+  margin: 40px auto;
+}
+
+#footnote {
+  font-size: 14px;
+  color: #666;
+  padding-top: 24px;
+}
+
+#legend {
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+#legend div {
+  display: inline-block;
+  padding-right: 20px;
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  font-size: 12px;
+}
+
+#legend i {
+  padding-right: 4px;
+}
+
+#instruction {
+  font-size: 12px;
+  margin-top: 28px;
+  margin-bottom: 20px;
+  color: #999;
+}
+
+.sunday {
+  font-size: 10px;
+  font-weight: bold;
+  fill: #999;
+}
+
+#streamgraph {
+  display: inline-block;
+  text-align: center;
+  width: 49%;
+  margin-top: 20px;
+}
+
+.grid, .xaxis path, .xaxis line {
+  stroke: #000;
+  stroke-opacity: 0.15;
+  stroke-width: 1px;
+}
+
+.hoverarea {
+  fill-opacity: 0;
+  cursor: pointer;
+}
+.highlight-area {
+  fill: #cdd0c7;
+  fill-opacity: 0.4;
+}
+/* .highlight-line {
+  stroke: #e6e0cb;
+  stroke-width: 1px;
+} */
+
+#date {
+  display: inline-block;
+  border-bottom: 1px solid #ef314a;
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 15px 0;
+  padding: 5px 0;
+}
+
+#reference-container {
+  display: inline-block;
+  width: 49%;
+  text-align: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.xaxis2 .tick line {
+  stroke: #e7e9e4;
+  stroke-width: 1px;
+}
+
+.xaxis2 path {
+  opacity: 0;
+}
+
+.xaxis .tick text, .bar-label {
+  font-family: 'Bai Jamjuree', serif;
+  font-weight: 400;
+  font-size: 10px;
+  fill: #444;
+}
+
+.bar-label-x, .bar-label-y {
+  font-family: 'Bai Jamjuree', serif;
+  font-size: 12px;
+  fill: #444;
+}
+
+.bar-label-y {
+  font-weight: bold;
+}
+
+#top-post {
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+#top-post .channel {
+  float: right;
+  padding-left: 8px;
+}
+
+.post-container {
+  background-color: rgb(255, 255, 255);
+  border-bottom-color: rgb(221, 223, 226);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(221, 223, 226);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgb(221, 223, 226);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(221, 223, 226);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  color: rgb(29, 33, 41);
+  direction: ltr;
+  display: block;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+  position: relative;
+  text-size-adjust: 100%;
+}
+
+.post-author {
+  font-size: 14px;
+  font-weight: 600;
+  height: 18px;
+  letter-spacing: 0.15px;
+  line-height: 18px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.post-author .username {
+  position: absolute;
+  left: 0;
+  right: 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.post-author .channel {
+  position: absolute;
+  right: 0;
+  width: 16px;
+}
+
+.post-content {
+  direction: ltr;
+  display: block;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+}
+
+.post {
+  clear: both;
+}
+
+blockquote {
+  width: 100%;
+  max-width: 500px;
+  border-left: 4px solid #cdd0c7;
+  margin-left: 3px;
+  padding-left: 10px;
+  font-weight: 400;
+}
+
+#top-post:hover blockquote {
+  border-left: 4px solid #ef314a;
 }
 
 @media screen and (max-device-width: 667px){
-    html, body {
-        padding: 0px;
-        margin: 0px;
-    }
+  html, body {
+    padding: 0px;
+    margin: 0px;
+  }
 
-    h1, h2, h3 {
-        padding: 0 20px;
-    }
+  h1, h2, h3 {
+    padding: 0 20px;
+  }
 
-    #editorial {
-        padding: 0 20px;
-    }
+  #editorial {
+    padding: 0 20px;
+  }
 
-    #streamgraph {
-        width: 100%;
-    }
+  #streamgraph {
+    width: 100%;
+  }
 
-    #reference-container {
-        border-bottom: 20px solid rgba(231,233,228,0.0);
-        box-shadow: 0 5px 5px #00000011;
-        max-height: 400px;
-        width: 100%;
-        bottom: 0;
-        background: rgba(231,233,228,0.95);
-    }
+  #reference-container {
+    border-bottom: 10px solid rgba(231,233,228,0.0);
+    box-shadow: 0 5px 5px #00000011;
+    max-height: 400px;
+    width: 100%;
+    bottom: 0;
+    background: rgba(231,233,228,0.95);
+  }
 
-    blockquote {
-        width: 321px;
-        box-sizing: border-box;
-    }
+  blockquote {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 @media screen and (max-device-width: 667px) and (orientation: landscape) {
-    #reference-container {
-        max-height: 200px;
-    }
+  #reference-container {
+    max-height: 200px;
+  }
 
-    blockquote {
-        width: 100%;
-    }
+  blockquote {
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 1024px){
-    #editorial {
-        width: 75%;
-    }
+  #editorial {
+    width: 75%;
+  }
 }
 
 @media screen and (min-width: 1024px) {
-    #minibar {
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
+  #minibar {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
 }

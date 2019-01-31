@@ -34,7 +34,7 @@ const minibar = {
     margin: {
         top: 20,
         bottom: 10,
-        left: 18,
+        left: 8,
         right: 18
     },
     between_bar_distance: 30, // 8px between bars
