@@ -116,7 +116,8 @@ function initStreamgraph(data) {
     streamgraph.svg
         .attr('width', streamgraph.width)
         .attr('height', data.length * streamgraph.between_day_distance);
-    streamgraph.g = streamgraph.svg.append('g');
+    streamgraph.g = streamgraph.svg.append('g')
+        .attr('transform', 'translate(' + (0.5) + ',' + (0.5) + ')');
 
     streamgraph.x
         .domain([0, data.length - 1])
@@ -137,7 +138,8 @@ function initStreamgraph(data) {
 }
 
 function renderStreamgraph(series) {
-    const highlights = streamgraph.g.selectAll('.highlight')
+    const highlights = streamgraph.g.append('g').classed('highlight-layer', true)
+        .selectAll('.highlight')
         .data(raw)
         .enter().append('g')
         .attr('class', 'highlight hidden')
@@ -159,7 +161,8 @@ function renderStreamgraph(series) {
     //     .attr('x2', (d,i) => streamgraph.between_day_distance)
     //     .attr('y2', streamgraph.width);
 
-    streamgraph.g.selectAll('path')
+    streamgraph.g.append('g').classed('path-layer', true)
+        .selectAll('path')
         .data(series)
         .enter().append('path')
         .attr('d', streamgraph.area)
@@ -169,7 +172,19 @@ function renderStreamgraph(series) {
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.25);
 
-    streamgraph.g.selectAll('.grid')
+    // streamgraph.g.append('g').classed('path2-layer', true)
+    //     .selectAll('path')
+    //     .data(series)
+    //     .enter().append('path')
+    //     .attr('d', streamgraph.area)
+    //     .attr('fill', d => partyColor(d.key))
+    //     // Give a smoother look at edges
+    //     .attr('stroke', '#e7e9e4')
+    //     .attr('stroke-width', 1)
+    //     .attr('stroke-opacity', 0.25);
+
+    streamgraph.g.append('g').classed('grid-layer', true)
+        .selectAll('.grid')
         .data(d3.range(series[0].length))
         .enter().append('line')
         .classed('grid', true)
@@ -179,7 +194,7 @@ function renderStreamgraph(series) {
         .attr('y1', (d,i) => ((i - 2) % 7 == 0) ? 0 : 15)
         .attr('y2', (d,i) => ((i - 2) % 7 == 0) ? streamgraph.width : 35);
 
-    streamgraph.g.selectAll('.sunday')
+    streamgraph.g.append('g').classed('sunday-layer', true).selectAll('.sunday')
         .data(raw)
         .enter()
         .filter((d, i) => (i - 2) % 7 == 0)
@@ -192,7 +207,7 @@ function renderStreamgraph(series) {
         .style('text-anchor', 'end')
         .text(d => formatDate(parseTime(d.created_date_bkk)));
 
-    streamgraph.g.selectAll('.hoverarea')
+    streamgraph.g.append('g').classed('glass-layer', true).selectAll('.hoverarea')
         .data(raw)
         .enter().append('rect')
         .classed('hoverarea', true)
