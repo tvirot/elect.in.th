@@ -1,4 +1,20 @@
 @font-face {
+  font-family: 'Noto Sans Thai UI';
+  src: url('./font/subset-NotoSansThaiUI-Bold.woff2') format('woff2'),
+  url('./font/subset-NotoSansThaiUI-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai UI';
+  src: url('./font/subset-NotoSansThaiUI-Regular.woff2') format('woff2'),
+  url('./font/subset-NotoSansThaiUI-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'The Matter';
   font-weight: 700;
   src: url(./font/thematter-bold_6c43ee73.woff2) format("woff2"),
@@ -8,17 +24,18 @@
 html, body {
   background: #000;
   color: #fff;
-  font-family: 'noto sans thai', 'Bai Jamjuree', serif;
+  font-family: 'Noto Sans Thai UI', serif;
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
   line-height: 1.5;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: normal;
 }
 
 svg text {
-  font-family: 'noto sans thai', 'Bai Jamjuree', serif;
+  font-family: 'Noto Sans Thai UI', 'The Matter', serif;
+  font-weight: normal;
 }
 
 h1, h2, h3 {
@@ -264,20 +281,11 @@ a {
   #top-post {
     padding: 0 10px;
   }
-
-  blockquote {
-    width: 100%;
-    box-sizing: border-box;
-  }
 }
 
 @media screen and (max-device-width: 667px) and (orientation: landscape) {
   #reference-container {
     max-height: 200px;
-  }
-
-  blockquote {
-    width: 100%;
   }
 }
 
