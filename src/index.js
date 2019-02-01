@@ -165,7 +165,7 @@ function renderStreamgraph(series) {
 
     const half = Math.floor(series.length / 2);
     function offset(i) {
-        return i === half ? 0 : (half - i) * 2;
+        return i === half ? 0 : (half - i) * 0;
     }
 
     streamgraph.g.append('g').classed('path-layer', true)
