@@ -138,6 +138,8 @@ function initStreamgraph(data) {
 }
 
 function renderStreamgraph(series) {
+    series.sort((a, b) => a[0][0] - b[0][0]);
+
     const highlights = streamgraph.g.append('g').classed('highlight-layer', true)
         .selectAll('.highlight')
         .data(raw)
@@ -161,11 +163,19 @@ function renderStreamgraph(series) {
     //     .attr('x2', (d,i) => streamgraph.between_day_distance)
     //     .attr('y2', streamgraph.width);
 
+    const half = Math.floor(series.length / 2);
+    function offset(i) {
+        return i === half ? 0 : (half - i) * 2;
+    }
+
     streamgraph.g.append('g').classed('path-layer', true)
         .style('opacity', 0.3)
-        .selectAll('path')
+        .selectAll('g')
         .data(series)
-        .enter().append('path')
+        .enter()
+        .append('g')
+        .attr('transform', (d, i) => `translate(0, ${offset(i)})`)
+        .append('path')
         .attr('d', streamgraph.area)
         .attr('fill', d => partyColor(d.key))
         // Give a smoother look at edges
@@ -183,17 +193,21 @@ function renderStreamgraph(series) {
             .attr('width', streamgraph.between_day_distance + 2)
             .attr('height', streamgraph.width);
 
+
     streamgraph.g.append('g').classed('path2-layer', true)
         .attr('clip-path', 'url(#clip-selection)')
-        .selectAll('path')
-        .data(series)
-        .enter().append('path')
-        .attr('d', streamgraph.area)
-        .attr('fill', d => partyColor(d.key))
-        // Give a smoother look at edges
-        .attr('stroke', '#e7e9e4')
-        .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.25);
+        .selectAll('g')
+            .data(series)
+            .enter()
+            .append('g')
+            .attr('transform', (d, i) => `translate(0, ${offset(i)})`)
+            .append('path')
+            .attr('d', streamgraph.area)
+            .attr('fill', d => partyColor(d.key))
+            // Give a smoother look at edges
+            .attr('stroke', '#e7e9e4')
+            .attr('stroke-width', 1)
+            .attr('stroke-opacity', 0.25);
 
     streamgraph.g.append('g').classed('grid-layer', true)
         .selectAll('.grid')
