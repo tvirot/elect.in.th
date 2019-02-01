@@ -275,7 +275,7 @@ a {
     max-height: 400px;
     width: 100%;
     bottom: 0;
-    background: rgba(231,233,228,0.95);
+    background: rgba(0, 0, 0, 0.95);
   }
 
   #top-post {
