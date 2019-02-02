@@ -34,7 +34,7 @@ html, body {
 }
 
 svg text {
-  font-family: 'Noto Sans Thai UI', 'The Matter', serif;
+  font-family: 'Noto Sans Thai UI', 'Libre Baskerville', 'The Matter', serif;
   font-weight: normal;
 }
 
@@ -67,7 +67,7 @@ a {
 }
 
 #legend {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 20px;
   padding: 0 10px;
 }
@@ -92,15 +92,16 @@ a {
 
 .sunday {
   font-size: 10px;
-  font-weight: bold;
-  fill: rgba(255, 255, 255, 0.5);
+  /* font-weight: bold; */
+  font-family: 'Noto Sans Thai UI', 'The Matter', serif;
+  fill: rgba(255, 255, 255, 0.7);
 }
 
 #streamgraph {
   display: inline-block;
   text-align: center;
   width: 49%;
-  margin-top: 20px;
+  margin-top: 28px;
 }
 
 .grid, .xaxis path, .xaxis line {
@@ -152,17 +153,17 @@ a {
 .xaxis .tick text, .bar-label {
   font-weight: 400;
   font-size: 10px;
-  fill: rgba(255, 255, 255, 0.5);
+  fill: rgba(255, 255, 255, 0.7);
   text-anchor: end;
 }
 
 .bar-label-x, .bar-label-y {
   font-size: 12px;
-  fill: rgba(255, 255, 255, 0.5);
+  fill: rgba(255, 255, 255, 0.7); 
 }
 
 .bar-label-y {
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 #top-post {
@@ -179,7 +180,7 @@ a {
 }
 
 .post-container {
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, .9);
   border-bottom-color: rgb(221, 223, 226);
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -211,6 +212,9 @@ a {
   overflow-wrap: break-word;
   position: relative;
   text-size-adjust: 100%;
+  max-width: 480px; 
+  margin-left: auto; 
+  margin-right: auto; 
 }
 
 .post-author {
@@ -251,6 +255,23 @@ a {
   clear: both;
 }
 
+#credits {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  font-size: 12px; 
+  padding-top: 48px;
+  padding-bottom: 24px; 
+}
+
+#credits a {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.divider {
+  padding: 0 12px; 
+}
+
 @media screen and (max-device-width: 667px){
   html, body {
     padding: 0px;
@@ -270,12 +291,11 @@ a {
   }
 
   #reference-container {
-    border-bottom: 0px solid rgba(231,233,228,0.0);
-    box-shadow: 0 5px 5px #00000011;
+    box-shadow: 0 5px 15px #cdd0c733;
     max-height: 400px;
     width: 100%;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(0, 0, 0, 0.75);
   }
 
   #top-post {

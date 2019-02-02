@@ -8,6 +8,7 @@ const partyColor = d3.scaleOrdinal()
   .range(COLORS);
 
 const parseTime = d3.timeParse('%Y-%m-%d');
+const dateOffset = 2; 
 
 /* ===== Streamgraph's Config ===== */
 const streamgraph = {
@@ -37,7 +38,7 @@ const minibar = {
         left: 12,
         right: 12
     },
-    between_bar_distance: 30, // 8px between bars
+    between_bar_distance: 36, // 8px between bars
     n_top: 3,
 
     svg: d3.select('#minibar svg'),
@@ -216,20 +217,21 @@ function renderStreamgraph(series) {
         .classed('grid', true)
         .attr('x1', (d,i) => streamgraph.x(i) + streamgraph.between_day_distance / 2)
         .attr('x2', (d,i) => streamgraph.x(i) + streamgraph.between_day_distance / 2)
-        // (i - 2) is a quick hack to draw a longer grid on Sunday. Our dataset starts on Thursday.
-        .attr('y1', (d,i) => ((i - 2) % 7 == 0) ? 0 : 15)
-        .attr('y2', (d,i) => ((i - 2) % 7 == 0) ? streamgraph.width : 35);
+        // (i - dateOffset) is a quick hack to draw a longer grid on Sunday.
+        .attr('y1', (d,i) => ((i - dateOffset) % 7 == 0) ? 0 : 15)
+        .attr('y2', (d,i) => ((i - dateOffset) % 7 == 0) ? streamgraph.width : 35);
 
     streamgraph.g.append('g').classed('sunday-layer', true).selectAll('.sunday')
         .data(raw)
         .enter()
-        .filter((d, i) => (i - 2) % 7 == 0)
+        .filter((d, i) => (i - dateOffset) % 7 == 0)
         .append('g')
         .classed('sunday', true)
-        .attr('transform', (d, i) => `translate(${streamgraph.x(i*7+2) + streamgraph.between_day_distance / 2 - 4}, ${10})`)
+        .attr('transform', (d, i) => `translate(${streamgraph.x(i*7+dateOffset) + streamgraph.between_day_distance / 2 - 4}, ${10})`)
         .append('g')
         .attr('transform', 'rotate(-90)')
         .append('text')
+        .attr('y', -4)
         .style('text-anchor', 'end')
         .text(d => formatDate(parseTime(d.created_date_bkk)));
 
@@ -247,6 +249,8 @@ function renderStreamgraph(series) {
 }
 
 function handleMouseover(d, i) {
+    if (i == 0) return;  // No data for the first data point. 
+
     d3.select('#date')
         .text(formatFullDate(parseTime(d.created_date_bkk)));
     d3.selectAll('.highlight')
@@ -294,7 +298,7 @@ function initMinibar(max_engagement) {
         .attr('transform', `translate(0, ${minibar.between_bar_distance * (minibar.n_top - 0.5)})`)
         .call(xAxis1)
         .selectAll('text')
-        .attr('dx', 3)
+        .attr('dx', 4)
 
     minibar.g.append('g')
         .attr('class', 'xaxis2')
@@ -308,6 +312,7 @@ function initMinibar(max_engagement) {
         .attr('x', (minibar.width - minibar.margin.right - minibar.margin.left))
         .attr('dx', 3)
         .attr('y', minibar.between_bar_distance * minibar.n_top - 20)
+        .attr('dy', -4)
         .attr('text-anchor', 'end')
         .text('การมีส่วนร่วม');
 
@@ -343,7 +348,7 @@ function renderMinibar(top_three_stats) {
         .attr('x', -minibar.margin.left)
         .attr('y', (d, i) => i * minibar.between_bar_distance)
         .attr('dx', minibar.margin.left)
-        .attr('dy', -6)
+        .attr('dy', -8)
         .attr('text-anchor', 'start')
         .text(d => d.party);
 
