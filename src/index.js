@@ -1,4 +1,5 @@
 import { formatFullDate, formatDate } from './utils/formatThaiTime';
+import isSunday from './utils/isSunday';
 import { PARTIES, COLORS } from './constants';
 import './style.css';
 import dataFile from './social-summary.json';
@@ -8,7 +9,7 @@ const partyColor = d3.scaleOrdinal()
   .range(COLORS);
 
 const parseTime = d3.timeParse('%Y-%m-%d');
-const dateOffset = 5; 
+const DATE_OFFSET = 5;
 
 /* ===== Streamgraph's Config ===== */
 const streamgraph = {
@@ -50,8 +51,7 @@ const minibar = {
 
 let raw;
 d3.json(dataFile).then((json) => {
-    raw = json.reverse();
-    // console.log(raw);
+    raw = json.map(d => ({ ...d, date: parseTime(d.created_date_bkk) })).reverse();
     init(raw);
 });
 
@@ -139,14 +139,13 @@ function initStreamgraph(data) {
 }
 
 function renderStreamgraph(series) {
-    series.sort((a, b) => a[0][0] - b[0][0]);
-
-    const highlights = streamgraph.g.append('g').classed('highlight-layer', true)
+    const highlights = streamgraph.g.append('g')
+        .classed('highlight-layer', true)
         .selectAll('.highlight')
-        .data(raw)
+            .data(raw)
         .enter().append('g')
-        .attr('class', 'highlight hidden')
-        .attr('transform', (d,i) => `translate(${streamgraph.x(i) - streamgraph.between_day_distance / 2 - 2}, 0)`);
+            .attr('class', 'highlight hidden')
+            .attr('transform', (d,i) => `translate(${streamgraph.x(i) - streamgraph.between_day_distance / 2 - 2}, 0)`);
 
     highlights.append('rect')
         .attr('class', 'highlight-area')
@@ -172,17 +171,16 @@ function renderStreamgraph(series) {
     streamgraph.g.append('g').classed('path-layer', true)
         .style('opacity', 0.3)
         .selectAll('g')
-        .data(series)
-        .enter()
-        .append('g')
-        .attr('transform', (d, i) => `translate(0, ${offset(i)})`)
+            .data(series)
+        .enter().append('g')
+            .attr('transform', (d, i) => `translate(0, ${offset(i)})`)
         .append('path')
-        .attr('d', streamgraph.area)
-        .attr('fill', d => partyColor(d.key))
-        // Give a smoother look at edges
-        .attr('stroke', '#e7e9e4')
-        .attr('stroke-width', 1)
-        .attr('stroke-opacity', 0.25);
+            .attr('d', streamgraph.area)
+            .attr('fill', d => partyColor(d.key))
+            // Give a smoother look at edges
+            .attr('stroke', '#e7e9e4')
+            .attr('stroke-width', 1)
+            .attr('stroke-opacity', 0.25);
 
     streamgraph.clipRect = streamgraph.svg.append('defs')
         .append('clipPath')
@@ -212,28 +210,28 @@ function renderStreamgraph(series) {
 
     streamgraph.g.append('g').classed('grid-layer', true)
         .selectAll('.grid')
-        .data(d3.range(series[0].length))
+        .data(raw)
         .enter().append('line')
         .classed('grid', true)
         .attr('x1', (d,i) => streamgraph.x(i) + streamgraph.between_day_distance / 2)
         .attr('x2', (d,i) => streamgraph.x(i) + streamgraph.between_day_distance / 2)
         // (i - dateOffset) is a quick hack to draw a longer grid on Sunday.
-        .attr('y1', (d,i) => ((i - dateOffset) % 7 == 0) ? 0 : 15)
-        .attr('y2', (d,i) => ((i - dateOffset) % 7 == 0) ? streamgraph.width : 35);
+        .attr('y1', d => (isSunday(d.date)) ? 0 : 15)
+        .attr('y2', d => (isSunday(d.date)) ? streamgraph.width : 35);
 
     streamgraph.g.append('g').classed('sunday-layer', true).selectAll('.sunday')
         .data(raw)
         .enter()
-        .filter((d, i) => (i - dateOffset) % 7 == 0)
+        .filter(d => isSunday(d.date))
         .append('g')
         .classed('sunday', true)
-        .attr('transform', (d, i) => `translate(${streamgraph.x(i*7+dateOffset) + streamgraph.between_day_distance / 2 - 4}, ${10})`)
+        .attr('transform', (d, i) => `translate(${streamgraph.x(i*7+DATE_OFFSET) + streamgraph.between_day_distance / 2 - 4}, ${10})`)
         .append('g')
         .attr('transform', 'rotate(-90)')
         .append('text')
         .attr('y', -4)
         .style('text-anchor', 'end')
-        .text(d => formatDate(parseTime(d.created_date_bkk)));
+        .text(d => formatDate(d.date));
 
     streamgraph.g.append('g').classed('glass-layer', true).selectAll('.hoverarea')
         .data(raw)
@@ -249,10 +247,10 @@ function renderStreamgraph(series) {
 }
 
 function handleMouseover(d, i) {
-    if (i == 0) return;  // No data for the first data point. 
+    if (i == 0) return;  // No data for the first data point.
 
     d3.select('#date')
-        .text(formatFullDate(parseTime(d.created_date_bkk)));
+        .text(formatFullDate(d.date));
     d3.selectAll('.highlight')
         .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
     streamgraph.clipRect
