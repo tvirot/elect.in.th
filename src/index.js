@@ -9,7 +9,6 @@ const partyColor = d3.scaleOrdinal()
   .range(COLORS);
 
 const parseTime = d3.timeParse('%Y-%m-%d');
-const DATE_OFFSET = 5;
 
 /* ===== Streamgraph's Config ===== */
 const streamgraph = {
@@ -51,7 +50,10 @@ const minibar = {
 
 let raw;
 d3.json(dataFile).then((json) => {
-    raw = json.map(d => ({ ...d, date: parseTime(d.created_date_bkk) })).reverse();
+    raw = json.reverse().map((d, i) => ({ ...d,
+        index: i,
+        date: parseTime(d.created_date_bkk)
+    }));
     init(raw);
 });
 
@@ -225,7 +227,7 @@ function renderStreamgraph(series) {
         .filter(d => isSunday(d.date))
         .append('g')
         .classed('sunday', true)
-        .attr('transform', (d, i) => `translate(${streamgraph.x(i*7+DATE_OFFSET) + streamgraph.betweenDayDistance / 2 - 4}, ${10})`)
+        .attr('transform', d => `translate(${streamgraph.x(d.index) + streamgraph.betweenDayDistance / 2 - 4}, ${10})`)
         .append('g')
         .attr('transform', 'rotate(-90)')
         .append('text')
@@ -335,7 +337,7 @@ function renderMinibar(topThreeStats) {
         .attr('y', (d, i) => (i - 0.5 + 0.45) * minibar.betweenBarDistance)
         .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
-        .attr('width', (d,i) => minibar.x(d.total_engagement));
+        .attr('width', d => minibar.x(d.total_engagement));
 
     const labels = minibar.g.selectAll('.bar-label-y')
         .data(topThreeStats, (d,i) => i);
