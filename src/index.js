@@ -14,8 +14,8 @@ const DATE_OFFSET = 5;
 /* ===== Streamgraph's Config ===== */
 const streamgraph = {
     width: 321, // Same fixed width for both desktop and mobile for simplicity
-    side_margin: 30,
-    between_day_distance: 32, // 24px between days.
+    sideMargin: 30,
+    betweenDayDistance: 32, // 24px between days.
 
     svg: d3.select('#streamgraph svg'),
 
@@ -39,8 +39,8 @@ const minibar = {
         left: 12,
         right: 12
     },
-    between_bar_distance: 36, // 8px between bars
-    n_top: 3,
+    betweenBarDistance: 36, // 8px between bars
+    nTop: 3,
 
     svg: d3.select('#minibar svg'),
 
@@ -89,13 +89,13 @@ function init(raw) {
     */
 
     // Initialize streamgraph
-    let max_engagement = 0;
+    let maxEngagement = 0;
     const data = raw.map(d => {
         let entry = {};
         entry.date = d.created_date_bkk;
         PARTIES.forEach(party => { entry[party] = 5; }); // Init with 1 (avoid 0)
         d.stats.forEach(dd => { entry[dd.party] = ++dd.total_engagement; });
-        max_engagement = Math.max(max_engagement, d3.max(d.stats.map(dd => dd.total_engagement)));
+        maxEngagement = Math.max(maxEngagement, d3.max(d.stats.map(dd => dd.total_engagement)));
         return entry;
     });
     // console.log(data);
@@ -104,7 +104,7 @@ function init(raw) {
     renderStreamgraph(series);
 
     // Initialize mini barchart
-    initMinibar(max_engagement);
+    initMinibar(maxEngagement);
 
     // Pre-select first date
     handleMouseover(raw[1], 1);
@@ -116,16 +116,16 @@ function initStreamgraph(data) {
 
     streamgraph.svg
         .attr('width', streamgraph.width)
-        .attr('height', data.length * streamgraph.between_day_distance);
+        .attr('height', data.length * streamgraph.betweenDayDistance);
     streamgraph.g = streamgraph.svg.append('g')
         .attr('transform', 'translate(' + (0.5) + ',' + (0.5) + ')');
 
     streamgraph.x
         .domain([0, data.length - 1])
-        .range([0, data.length * streamgraph.between_day_distance]);
+        .range([0, data.length * streamgraph.betweenDayDistance]);
     streamgraph.y
         .domain(d3.extent(d3.merge((d3.merge(series)))))
-        .range([streamgraph.width - streamgraph.side_margin, streamgraph.side_margin]);
+        .range([streamgraph.width - streamgraph.sideMargin, streamgraph.sideMargin]);
 
     streamgraph.area
         .x((d, i) => streamgraph.x(i))
@@ -145,11 +145,11 @@ function renderStreamgraph(series) {
             .data(raw)
         .enter().append('g')
             .attr('class', 'highlight hidden')
-            .attr('transform', (d,i) => `translate(${streamgraph.x(i) - streamgraph.between_day_distance / 2 - 2}, 0)`);
+            .attr('transform', (d,i) => `translate(${streamgraph.x(i) - streamgraph.betweenDayDistance / 2 - 2}, 0)`);
 
     highlights.append('rect')
         .attr('class', 'highlight-area')
-        .attr('width', streamgraph.between_day_distance + 2)
+        .attr('width', streamgraph.betweenDayDistance + 2)
         .attr('height', streamgraph.width)
         .attr('rx', 3)
         .attr('ry', 3);
@@ -188,8 +188,8 @@ function renderStreamgraph(series) {
         .append('rect')
             .attr('rx', 3)
             .attr('ry', 3)
-            .attr('x', streamgraph.x(1) - streamgraph.between_day_distance / 2 - 2)
-            .attr('width', streamgraph.between_day_distance + 2)
+            .attr('x', streamgraph.x(1) - streamgraph.betweenDayDistance / 2 - 2)
+            .attr('width', streamgraph.betweenDayDistance + 2)
             .attr('height', streamgraph.width);
 
 
@@ -213,8 +213,8 @@ function renderStreamgraph(series) {
         .data(raw)
         .enter().append('line')
         .classed('grid', true)
-        .attr('x1', (d,i) => streamgraph.x(i) + streamgraph.between_day_distance / 2)
-        .attr('x2', (d,i) => streamgraph.x(i) + streamgraph.between_day_distance / 2)
+        .attr('x1', (d,i) => streamgraph.x(i) + streamgraph.betweenDayDistance / 2)
+        .attr('x2', (d,i) => streamgraph.x(i) + streamgraph.betweenDayDistance / 2)
         // (i - dateOffset) is a quick hack to draw a longer grid on Sunday.
         .attr('y1', d => (isSunday(d.date)) ? 0 : 15)
         .attr('y2', d => (isSunday(d.date)) ? streamgraph.width : 35);
@@ -225,7 +225,7 @@ function renderStreamgraph(series) {
         .filter(d => isSunday(d.date))
         .append('g')
         .classed('sunday', true)
-        .attr('transform', (d, i) => `translate(${streamgraph.x(i*7+DATE_OFFSET) + streamgraph.between_day_distance / 2 - 4}, ${10})`)
+        .attr('transform', (d, i) => `translate(${streamgraph.x(i*7+DATE_OFFSET) + streamgraph.betweenDayDistance / 2 - 4}, ${10})`)
         .append('g')
         .attr('transform', 'rotate(-90)')
         .append('text')
@@ -237,13 +237,13 @@ function renderStreamgraph(series) {
         .data(raw)
         .enter().append('rect')
         .classed('hoverarea', true)
-        .attr('x', (d,i) => streamgraph.x(i) - streamgraph.between_day_distance / 2)
+        .attr('x', (d,i) => streamgraph.x(i) - streamgraph.betweenDayDistance / 2)
         .attr('y', 0)
-        .attr('width', streamgraph.between_day_distance)
+        .attr('width', streamgraph.betweenDayDistance)
         .attr('height', streamgraph.width)
         .on('mouseover', handleMouseover);
 
-    streamgraph.g.attr('transform', `rotate(90 ${streamgraph.width/2} ${streamgraph.width/2}) translate(${streamgraph.between_day_distance / 2} 0)`);
+    streamgraph.g.attr('transform', `rotate(90 ${streamgraph.width/2} ${streamgraph.width/2}) translate(${streamgraph.betweenDayDistance / 2} 0)`);
 }
 
 function handleMouseover(d, i) {
@@ -254,10 +254,10 @@ function handleMouseover(d, i) {
     d3.selectAll('.highlight')
         .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
     streamgraph.clipRect
-        .attr('x', streamgraph.x(i) - streamgraph.between_day_distance / 2 - 2)
+        .attr('x', streamgraph.x(i) - streamgraph.betweenDayDistance / 2 - 2)
     // d3.selectAll('.top-post')
     //     .classed('hidden', dd => dd.created_date_bkk != d.created_date_bkk);
-    renderMinibar(d.stats.slice(0, minibar.n_top));
+    renderMinibar(d.stats.slice(0, minibar.nTop));
     d3.select('#top-post .username').text(d.top_post.user_name);
     d3.select('#top-post .channel i').attr('class', d.top_post.channel == 'twitter' ? 'fab fa-twitter' : 'fab fa-facebook-f');
     const text = d.top_post.text.replace(/http/gi, ' http');
@@ -268,7 +268,7 @@ function handleMouseover(d, i) {
 function initMinibar(max_engagement) {
     minibar.svg
         .attr('width', minibar.width)
-        .attr('height', minibar.between_bar_distance * minibar.n_top + minibar.margin.top + minibar.margin.bottom);
+        .attr('height', minibar.betweenBarDistance * minibar.nTop + minibar.margin.top + minibar.margin.bottom);
     minibar.g = minibar.svg.append('g')
         .attr('transform', `translate(${minibar.margin.left} ${minibar.margin.top})`);
 
@@ -285,7 +285,7 @@ function initMinibar(max_engagement) {
 
     const xAxis2 = d3.axisBottom(minibar.x)
         .ticks(10)
-        .tickSizeInner(-minibar.between_bar_distance * minibar.n_top)
+        .tickSizeInner(-minibar.betweenBarDistance * minibar.nTop)
         .tickSizeOuter(0)
         .tickPadding(12);
 
@@ -293,14 +293,14 @@ function initMinibar(max_engagement) {
 
     minibar.g.append('g')
         .attr('class', 'xaxis')
-        .attr('transform', `translate(0, ${minibar.between_bar_distance * (minibar.n_top - 0.5)})`)
+        .attr('transform', `translate(0, ${minibar.betweenBarDistance * (minibar.nTop - 0.5)})`)
         .call(xAxis1)
         .selectAll('text')
         .attr('dx', 4)
 
     minibar.g.append('g')
         .attr('class', 'xaxis2')
-        .attr('transform', `translate(0, ${minibar.between_bar_distance * (minibar.n_top - 0.5)})`)
+        .attr('transform', `translate(0, ${minibar.betweenBarDistance * (minibar.nTop - 0.5)})`)
         .call(xAxis2)
         .selectAll('text')
         .remove();
@@ -309,7 +309,7 @@ function initMinibar(max_engagement) {
         .attr('class', 'bar-label-x')
         .attr('x', (minibar.width - minibar.margin.right - minibar.margin.left))
         .attr('dx', 3)
-        .attr('y', minibar.between_bar_distance * minibar.n_top - 20)
+        .attr('y', minibar.betweenBarDistance * minibar.nTop - 20)
         .attr('dy', -4)
         .attr('text-anchor', 'end')
         .text('การมีส่วนร่วม');
@@ -317,34 +317,34 @@ function initMinibar(max_engagement) {
     // renderMinibar(raw[0].stats.slice(0, minibar.n_top));
 }
 
-function renderMinibar(top_three_stats) {
+function renderMinibar(topThreeStats) {
     const bars = minibar.bars.selectAll('.bar')
-        .data(top_three_stats, (d,i) => i);
+        .data(topThreeStats, (d,i) => i);
 
     bars.exit().remove();
     bars.enter().append('rect')
         .attr('class', 'bar')
-        .attr('height', Math.floor(minibar.between_bar_distance * 0.3))
+        .attr('height', Math.floor(minibar.betweenBarDistance * 0.3))
         .attr('rx', 3)
         .attr('ry', 3)
-        .attr('y', (d,i) => (i - 0.5 + 0.45) * minibar.between_bar_distance)
+        .attr('y', (d,i) => (i - 0.5 + 0.45) * minibar.betweenBarDistance)
         .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
     bars
-        .attr('y', (d, i) => (i - 0.5 + 0.45) * minibar.between_bar_distance)
+        .attr('y', (d, i) => (i - 0.5 + 0.45) * minibar.betweenBarDistance)
         .attr('fill', d => partyColor(d.party))
         // .transition(minibar.transition)
         .attr('width', (d,i) => minibar.x(d.total_engagement));
 
     const labels = minibar.g.selectAll('.bar-label-y')
-        .data(top_three_stats, (d,i) => i);
+        .data(topThreeStats, (d,i) => i);
 
     labels.exit().remove();
     labels.enter().append('text')
         .attr('class', 'bar-label-y')
         .attr('x', -minibar.margin.left)
-        .attr('y', (d, i) => i * minibar.between_bar_distance)
+        .attr('y', (d, i) => i * minibar.betweenBarDistance)
         .attr('dx', minibar.margin.left)
         .attr('dy', -8)
         .attr('text-anchor', 'start')
@@ -352,5 +352,5 @@ function renderMinibar(top_three_stats) {
 
     labels
         .text(d => d.party)
-        .attr('y', (d,i) => i * minibar.between_bar_distance);
+        .attr('y', (d,i) => i * minibar.betweenBarDistance);
 }
