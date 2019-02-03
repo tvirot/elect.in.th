@@ -8,7 +8,7 @@ const partyColor = d3.scaleOrdinal()
   .range(COLORS);
 
 const parseTime = d3.timeParse('%Y-%m-%d');
-const dateOffset = 2; 
+const dateOffset = 5; 
 
 /* ===== Streamgraph's Config ===== */
 const streamgraph = {
