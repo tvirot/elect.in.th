@@ -154,7 +154,7 @@ a {
   font-weight: 400;
   font-size: 10px;
   fill: rgba(255, 255, 255, 0.7);
-  text-anchor: end;
+  text-anchor: middle;
 }
 
 .bar-label-x, .bar-label-y {

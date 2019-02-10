@@ -290,13 +290,13 @@ function initMinibar(max_engagement) {
     .range([0, minibar.width - minibar.margin.left - minibar.margin.right]);
 
   const xAxis1 = d3.axisBottom(minibar.x)
-    .ticks(5)
+    .ticks(5, 's')
     .tickSizeInner(4)
     .tickSizeOuter(0)
     .tickPadding(6);
 
   const xAxis2 = d3.axisBottom(minibar.x)
-    .ticks(10)
+    .ticks(5)
     .tickSizeInner(-minibar.betweenBarDistance * minibar.nTop)
     .tickSizeOuter(0)
     .tickPadding(12);
