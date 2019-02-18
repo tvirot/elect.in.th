@@ -8,7 +8,6 @@ import {
   COLORS
 } from './constants';
 import './style.css';
-import './style-header.css';
 import dataFile from './social-summary.json';
 
 const partyColor = d3.scaleOrdinal()
