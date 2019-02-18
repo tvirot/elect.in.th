@@ -8,6 +8,7 @@ import {
   COLORS
 } from './constants';
 import './style.css';
+import './style-header.css';
 import dataFile from './social-summary.json';
 
 const partyColor = d3.scaleOrdinal()
@@ -132,11 +133,19 @@ function initStreamgraph(data) {
   streamgraph.g = streamgraph.svg.append('g')
     .attr('transform', 'translate(' + (0.5) + ',' + (0.5) + ')');
 
+  let engagement_range = d3.extent(d3.merge((d3.merge(series)))); 
+  console.log(engagement_range);
+  let engagement_average = (engagement_range[0] + engagement_range[1]) / 2; 
+
   streamgraph.x
     .domain([0, data.length - 1])
     .range([0, data.length * streamgraph.betweenDayDistance]);
+
   streamgraph.y
-    .domain(d3.extent(d3.merge((d3.merge(series)))))
+    .domain([
+      engagement_range[0] + 0.3 * (engagement_average - engagement_range[0]), 
+      engagement_range[1] - 0.3 * (engagement_range[1] - engagement_average)
+    ])
     .range([streamgraph.width - streamgraph.sideMargin, streamgraph.sideMargin]);
 
   streamgraph.area
